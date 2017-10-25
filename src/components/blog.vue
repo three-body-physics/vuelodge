@@ -40,53 +40,44 @@
       </div>
     </div>
 
+    <form v-show="replyBox" class="ui reply form">
+      <div class="field">
+        <input type="text" placeholder="Username" v-model="comment.author">
+        <textarea placeholder="type your comment here" id="commentbox" v-model="comment.comment"></textarea>
+      </div>
+      <div class="ui blue labeled submit icon button" @click="postComment()">
+        <i class="icon edit"></i> Add Reply
+      </div>
+    </form>
+
     <div class="ui segment" id="commentSession">
 
-      <form class="ui reply form">
-        <div class="field">
-          <textarea></textarea>
-        </div>
-        <div class="ui blue labeled submit icon button">
-          <i class="icon edit"></i> Add Reply
-        </div>
-      </form>
+
+
+      <div class="ui right floated blue button" @click="toggleReply()">
+        Add Comment
+      </div>
 
       <div class="ui comments">
         <h3 class="ui dividing header">Comments</h3>
 
-        <div class="comment">
+
+        <div v-for="comment in entry.comments" class="comment">
           <a class="avatar">
           <i class="big user circle icon"></i>
         </a>
           <div class="content">
-            <a class="author">Matt</a>
+            <a class="author">{{ comment.author }}</a>
             <div class="metadata">
               <span class="date">Today at 5:42PM</span>
             </div>
             <div class="text">
-              How artistic!
+              {{ comment.comment }}
             </div>
 
           </div>
         </div>
 
-        <div class="comment">
-          <a class="avatar">
-          <i class="big user circle icon"></i>
-        </a>
-          <div class="content">
-            <a class="author">Matt</a>
-            <div class="metadata">
-              <span class="date">Today at 5:42PM</span>
-            </div>
-            <div class="text">
-              How artistic!
-            </div>
-            <!-- <div class="actions">
-              <a class="reply">Reply</a>
-            </div> -->
-          </div>
-        </div>
 
       </div>
 
@@ -104,7 +95,12 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      entry: {}
+      entry: {},
+      replyBox: true,
+      comment: {
+        author: "",
+        comment: ""
+      }
     }
   },
 
@@ -121,8 +117,18 @@ export default {
 
 methods: {
   postComment() {
+    this.$http.post("/api/blogs/" + this.id, {_id: this.id, content: this.comment}, function(res) {
+      console.log(res)
+    });
+
+    this.$router.push("/home/blog/" + this.id);
+  },
+
+  toggleReply() {
+    this.replyBox = !this.replyBox;
 
   }
+
 }
 }
 </script>
@@ -140,6 +146,10 @@ methods: {
   margin-left: 1em;
 
   cursor: pointer;
+}
+
+#commentbox {
+  margin-top: 1em;
 }
 
 

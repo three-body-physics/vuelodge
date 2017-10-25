@@ -1,46 +1,40 @@
 <template>
-<div class="ui centered middle aligned stackable grid container">
 
+  <div class="ui centered middle aligned stackable grid container" id="body">
+    <div class="ui stackable cards grid" id="ui-overrides">
 
-  <div class="ui stackable cards grid" id="ui-overrides">
-
-
-
-    <div v-for="entry in entries" class="doubling centered five wide column card">
-      <div @click="goToBLog(entry._id)" class="image">
-        <img v-bind:src="entry.image">
-      </div>
-      <div class="content">
-        <a @click="goToBLog(entry._id)" class="header">
+      <div v-for="entry in entries" class="doubling centered five wide column card">
+        <div @click="goToBLog(entry._id)" class="image">
+          <img v-bind:src="entry.image">
+        </div>
+        <div class="content">
+          <a @click="goToBLog(entry._id)" class="header">
           {{ entry.name }}
         </a>
-        <div class="meta">
-          <span class="date">Posted: </span>
-        </div>
-        <div class="ui divider">
-        </div>
-        <div class="left aligned description">
-          {{ entry.text | limitText(150) }}
+          <div class="meta">
+            <span class="date">Posted: </span>
+          </div>
           <div class="ui divider">
           </div>
-        </div>
-        <!-- <span class="right floated">
+          <div class="left aligned description">
+            {{ entry.text | limitText(150) }}
+            <div class="ui divider">
+            </div>
+          </div>
+          <!-- <span class="right floated">
       <i class="heart outline like icon"></i>
       17 likes
     </span> -->
-        <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ commentCount }} comments </span>
-      </div>
-      <button @click="goToBLog(entry._id)" class="ui inverted blue button">Read More
+          <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length }} comments </span>
+        </div>
+        <button @click="goToBLog(entry._id)" class="ui inverted blue button">Read More
       </button>
+      </div>
+
     </div>
-
-
 
   </div>
 
-
-
-</div>
 </template>
 
 <script>
@@ -48,7 +42,7 @@ export default {
   data() {
     return {
       entries: [],
-      commentCount: 3
+
     }
   },
   created() {
@@ -95,6 +89,7 @@ export default {
   margin-top: 2em;
 }
 
+
 /*#blogpost:nth-child(n+1) {
   margin-top: 4em;
 }*/
@@ -123,12 +118,16 @@ img {
 }
 
 .image:hover {
- cursor: pointer;
+  cursor: pointer;
 }
 
- /*.row {
+#body {
+  margin-bottom: 3em;
+}
+
+
+/*.row {
    display: flex;
    flex-wrap: wrap;
  }*/
-
 </style>

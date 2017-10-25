@@ -1,6 +1,6 @@
 <template>
-<div class="ui doubling stackable centered grid container">
-
+<div class="ui doubling stackable centered grid" id="content">
+<!-- <div class="ui doubling stackable centered grid container"> -->
   <div class="column">
 
     <div class="ui segment">
@@ -105,13 +105,7 @@ export default {
   },
 
   created() {
-    this.$http.get("/api/blogs/" + this.id, {
-      flag: "hi"
-    }).then(function(data) {
-
-      this.entry = data.body
-      console.log(data);
-    });
+    this.postReq();
 
 },
 
@@ -119,13 +113,26 @@ methods: {
   postComment() {
     this.$http.post("/api/blogs/" + this.id, {_id: this.id, content: this.comment}, function(res) {
       console.log(res)
-    });
 
-    this.$router.push("/home/blog/" + this.id);
+    });
+      this.entry.comments.push(this.comment);
+    // this.$router.push("/home/blog/" + this.id);
+
   },
 
   toggleReply() {
     this.replyBox = !this.replyBox;
+
+  },
+
+  postReq() {
+    this.$http.get("/api/blogs/" + this.id, {
+      flag: "hi"
+    }).then(function(data) {
+
+      this.entry = data.body;
+      console.log("request made!");
+    });
 
   }
 
@@ -139,7 +146,7 @@ methods: {
 }
 
 #commentSession {
-  margin-top: 5em;
+  margin-top: 2em;
 }
 
 .fa-facebook {
@@ -149,7 +156,11 @@ methods: {
 }
 
 #commentbox {
-  margin-top: 1em;
+  margin-top: 0.5em;
+}
+
+#content {
+  margin: 0.01%;
 }
 
 

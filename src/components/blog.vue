@@ -21,18 +21,25 @@
             <div class="ui divider">
 
             </div>
-            <div class="description">
+            <div class="description" id="description">
               {{ entry.text }}
             </div>
             <div class="extra">
-              Additional Details
-              <social-sharing url="https://vuejs.org/" inline-template>
+              <p>Share this post:</p>
+              <social-sharing style="display: inline-block;" v-bind:url="this.$route.path" inline-template>
                 <div>
                   <network network="facebook">
-                    <i class="fa fa-facebook"></i> facebook
+                    <i class="fa fa-fw fa-facebook-square fa-2x" id="fbicon" style="cursor: pointer; margin-left: 2px;"></i>
+                  </network>
+                  <network network="pinterest">
+                    <i class="fa fa-fw fa-pinterest fa-2x" style="cursor: pointer;"></i>
+                  </network>
+                  <network network="reddit">
+                    <i class="fa fa-fw fa-reddit fa-2x" style="cursor: pointer;"></i>
                   </network>
                 </div>
               </social-sharing>
+
             </div>
           </div>
         </div>
@@ -59,7 +66,7 @@
       </div>
 
       <div class="ui comments">
-        <h3 class="ui dividing header">Comments</h3>
+        <h3 class="ui dividing header">{{ (entry.comments.length) }} comments</h3>
 
 
         <div v-for="comment in entry.comments" class="comment">
@@ -96,7 +103,7 @@ export default {
     return {
       id: this.$route.params.id,
       entry: {},
-      replyBox: true,
+      replyBox: false,
       comment: {
         author: "",
         comment: ""
@@ -106,16 +113,18 @@ export default {
 
   created() {
     this.postReq();
+    console.log(this.$route.path);
 
 },
 
 methods: {
   postComment() {
-    this.$http.post("/api/blogs/" + this.id, {_id: this.id, content: this.comment}, function(res) {
+    this.$http.post("/api/blog/" + this.id, {_id: this.id, content: this.comment}, function(res) {
       console.log(res)
 
     });
       this.entry.comments.push(this.comment);
+
     // this.$router.push("/home/blog/" + this.id);
 
   },
@@ -126,7 +135,7 @@ methods: {
   },
 
   postReq() {
-    this.$http.get("/api/blogs/" + this.id, {
+    this.$http.get("/api/blog/" + this.id, {
       flag: "hi"
     }).then(function(data) {
 
@@ -145,15 +154,18 @@ methods: {
   margin-top: 3em;
 }
 
+#description {
+  font-family:  helvetica, arial, sans-serif;
+  line-height: 2rem;
+  word-break: break-word;
+  font-size: 12pt;
+}
+
 #commentSession {
   margin-top: 2em;
 }
 
-.fa-facebook {
-  margin-left: 1em;
 
-  cursor: pointer;
-}
 
 #commentbox {
   margin-top: 0.5em;

@@ -1,12 +1,12 @@
 <template>
 
-  <div class="ui verticle footer segment">
+  <div class="ui verticle footer">
     <div class="ui container">
       <div class="ui stackable divided equal height stackable center aligned grid">
         <div class="column">
+          <a href="#"><i class="fa fa-envelope"></i></a>
           <a href="#"><i class="fa fa-github-alt"></i></a>
-          <a href="#"><i class="fa fa-github-alt"></i></a>
-          <a href="#"><i class="fa fa-github-alt"></i></a>
+          <a href="#"><i class="fa fa-mobile"></i></a>
           <p>Creation of Myint Paing © 2017</p>
         </div>
 
@@ -30,11 +30,11 @@ i {
   font-size: 3em;
   display: inline-block;
   color: black;
-  margin: 1em 0.2em 0.2em 0.2em;
+  margin: 0.5em 0.2em 0.2em 0.2em;
 }
 
 p {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 </style>

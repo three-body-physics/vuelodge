@@ -1,28 +1,36 @@
 <template>
-
-  <div class="pusher">
-    <div class="ui inverted vertical masthead center aligned segment">
+<div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui container">
+    <div class="ui secondary fixed menu" id="navbar">
       <div class="ui container">
-        <div class="ui massive fixed menu">
-          <div class="ui container">
-            <div class="header item" id="logo">iTravelLog</div>
-            <a href="/home" class="item" id="homeNav">Home</a>
-            <a href="/home/new" class="item">New Post</a>
+        <a href="/home" class="active item" id="homeNav">Home</a>
+        <a href="/home/new" class="item">New Post</a>
+        <div class="right menu">
+          <div class="item">
+            <div class="ui icon input">
+              <input type="text" placeholder="Search...">
+              <i class="search link icon"></i>
+            </div>
           </div>
+          <a class="ui item">
+      Login
+    </a>
         </div>
       </div>
 
-      <div class="ui text container">
-        <h1 class="ui inverted header">
-          Welcome to my travel blog!
-        </h1>
-        <h2>Leave a comment if you see something you like!</h2>
-
-      </div>
 
     </div>
   </div>
 
+  <div class="ui text container">
+    <h1 class="ui inverted header">
+          Welcome to my travel blog!
+        </h1>
+    <h2>Leave a comment if you see something you like!</h2>
+
+  </div>
+
+</div>
 </template>
 
 <script>
@@ -30,6 +38,7 @@ export default {}
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
 
 #homeNav {
   color: rgb(144, 50, 4);
@@ -37,20 +46,27 @@ export default {}
 }
 
 .masthead h1.ui.header {
-  font-size: 3em;
-  margin-top: 3em;
-
+  font-size: 2em;
+  margin-top: 6em;
 }
 
 .masthead h2 {
 
-  margin-bottom: 3em;
+  margin-bottom: 6em;
+  font-size: 1.2em;
+}
 
+.menu {
+  background: white;
+}
+
+#navbar {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 1em;
+  background: white;
 }
 
 .masthead {
-    background: url("https://i.redd.it/ynd6hnuul0nz.jpg") !important;
+  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;
 }
-
-
 </style>

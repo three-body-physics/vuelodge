@@ -1,14 +1,159 @@
 <template>
+  <div id="holder">
+
+    <!-- <div class="ui button" @click="toggleLogin()">
+      login
+    </div> -->
+
+    <div v-show="loginForm" id="formholder" class="ui middle aligned center aligned grid">
+      <div class="six wide computer only column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Log in to your account
+            <i class="fa fa-times-circle" @click="toggleLogin()"></i>
+          </div>
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" placeholder="username">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" placeholder="password">
+              </div>
+            </div>
+            <div class="ui fluid large teal submit button">
+              login
+            </div>
+            <div class="ui message">
+              "New to us?"
+              <a href="#">Register here</a>
+            </div>
+
+          </div>
+          <div v-show="errorForm" class="ui error message" id="errorMsg">
+            <ul class="list">
+              <li>Please enter your username</li>
+              <li>Password must be at least 6 digits long</li>
+            </ul>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="mobile only sixteen wide column" id="mobileform">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Log in to your account
+            <i class="fa fa-times-circle" @click="toggleLogin()"></i>
+          </div>
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" placeholder="username">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" placeholder="password">
+              </div>
+            </div>
+            <div class="ui fluid large teal submit button">
+              login
+            </div>
+            <div class="ui message">
+              "New to us?"
+              <a href="#">Register here</a>
+            </div>
+
+          </div>
+          <div v-show="errorForm" class="ui error message" id="errorMsg">
+            <ul class="list">
+              <li>Please enter your username</li>
+              <li>Password must be at least 6 digits long</li>
+            </ul>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="tablet only ten wide column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Log in to your account
+            <i class="fa fa-times-circle" @click="toggleLogin()"></i>
+          </div>
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" placeholder="username">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" placeholder="password">
+              </div>
+            </div>
+            <div class="ui fluid large teal submit button">
+              login
+            </div>
+            <div class="ui message">
+              "New to us?"
+              <a href="#">Register here</a>
+            </div>
+
+          </div>
+          <div v-show="errorForm" class="ui error message" id="errorMsg">
+            <ul class="list">
+              <li>Please enter your username</li>
+              <li>Password must be at least 6 digits long</li>
+            </ul>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+
 
   <div class="ui centered middle aligned stackable grid container" id="body">
-    <div class="ui stackable cards grid" id="ui-overrides">
 
-      <div v-for="entry in entries" class="doubling centered five wide column card">
+    <div class="ui two column row" id="headerRow">
+      <div class="column">
+        <h4 class="ui header">
+          Latest entries:
+        </h4>
+      </div>
+      <div class="tablet computer only column">
+
+      </div>
+
+    </div>
+    <div class="ui divider" id="headerdivider">
+
+    </div>
+
+    <div class="ui stackable centered cards grid" id="ui-overrides">
+
+      <div v-for="entry in entries" class="doubling centered four wide column card" style="margin: 0.5em;">
         <div @click="goToBLog(entry._id)" class="image">
           <img v-bind:src="entry.image">
         </div>
         <div class="content">
-          <a @click="goToBLog(entry._id)" class="header">
+          <a @click="goToBLog(entry._id)" >
           {{ entry.name }}
         </a>
           <div class="meta">
@@ -21,20 +166,38 @@
             <div class="ui divider">
             </div>
           </div>
-          <!-- <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span> -->
+
           <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length }} comments </span>
         </div>
-        <button @click="goToBLog(entry._id)" class="ui inverted blue button">Read More
-      </button>
+        <!-- <button @click="goToBLog(entry._id)" class="ui inverted orange button">Read More
+        </button> -->
       </div>
 
     </div>
 
+    <div class="ui pagination menu" id="pagination">
+    <a class="active item">
+      1
+    </a>
+    <a class="item">
+      2
+    </a>
+    <a class="item">
+      3
+    </a>
+    <a class="disabled item">
+    ...
+    </a>
+    <a class="item">
+      12
+    </a>
   </div>
 
+  </div>
+
+
+
+</div>
 </template>
 
 <script>
@@ -42,6 +205,8 @@ export default {
   data() {
     return {
       entries: [],
+      errorForm: false,
+      loginForm: false
 
     }
   },
@@ -62,6 +227,10 @@ export default {
     goToBLog(id) {
       this.$router.push("/home/blog/" + id);
     },
+
+    toggleLogin() {
+      this.loginForm = !this.loginForm;
+    }
 
 
     // read() {
@@ -85,11 +254,39 @@ export default {
 </script>
 
 <style scoped>
+
+/*#holder {
+  position: relative;
+
+
+}*/
+
+#pagination {
+  margin-top: 3em;
+  margin-bottom: 1em;
+}
+
+#formholder {
+  position: relative;
+  z-index: 1;
+}
+
+
+#formholder .column {
+  position: fixed;
+  background: rgba(255, 255, 255, 1);
+}
 .container {
   margin-top: 2em;
 }
 
+#mobileform {
+  top: 20%;
+}
 
+#errorMsg {
+  display: block;
+}
 /*#blogpost:nth-child(n+1) {
   margin-top: 4em;
 }*/
@@ -97,6 +294,15 @@ export default {
 img {
   margin-bottom: 1em;
 }
+
+#headerdivider {
+  margin: 0.5rem;
+}
+
+#headerRow {
+padding: 0px;
+}
+
 
 .segment {
   border: 0px !important;

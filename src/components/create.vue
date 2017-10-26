@@ -9,15 +9,15 @@
   <form class="ui form">
     <div class="field">
       <label>Title</label>
-      <input type="text" v-model="blog.name" placeholder="name">
+      <input type="text" v-model="blog.name" placeholder="Title">
     </div>
     <div class="field">
       <label>Image</label>
-      <input type="text" v-model="blog.image">
+      <input type="text" v-model="blog.image" placeholder="Image url">
     </div>
     <div class="field">
       <label>Blog Content</label>
-      <textarea v-model="blog.text"></textarea>
+      <textarea v-model="blog.text" placeholder="Type something here"></textarea>
     </div>
 
     <button class="ui basic button" @click="postRequest">Submit</button>
@@ -38,9 +38,9 @@ export default {
   data() {
     return {
       blog: {
-        name: "gray",
-        image: "https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg",
-        text: "hi i'm gray."
+        name: "",
+        image: "",
+        text: ""
       }
     }
   },
@@ -66,6 +66,7 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 9em;
+  margin-top: 6em;
+  margin-bottom: 6em;
 }
 </style>

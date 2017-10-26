@@ -2,10 +2,6 @@
 <div class="ui main text container segment">
   <div class="ui huge header">Create New Post</div>
 
-  <form class="" action="index.html" method="post">
-
-  </form>
-
   <form class="ui form">
     <div class="field">
       <label>Title</label>
@@ -23,16 +19,10 @@
     <button class="ui basic button" @click="postRequest">Submit</button>
   </form>
 
-  <div class="ui divider"></div>
-
-  <p v-html="blog.text"></p>
-
-
 </div>
 </template>
 
 <script>
-
 
 export default {
   data() {
@@ -49,12 +39,13 @@ export default {
     postRequest() {
       var date = this.getTimeStamp();
 
-      this.$http.post("/api/blogs", {name: this.blog.name, image: this.blog.image, text: this.blog.text, date: date}, function(res) {
+      this.$http.post("/api/blogs", {name: this.blog.name, image: this.blog.image, text: this.blog.text, date: date}).then(function(res) {
 
         console.log(res);
+
       });
 
-      this.$router.push("/home");
+        this.$router.push("/home");
 
     },
 

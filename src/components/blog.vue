@@ -1,9 +1,10 @@
 <template>
 <div class="ui doubling stackable centered grid" id="content">
 <!-- <div class="ui doubling stackable centered grid container"> -->
+
   <div class="column">
 
-    <div class="ui segment">
+    <div class="ui centered segment">
       <img class="ui centered fluid image" :src="entry.image">
       <div class="ui divider">
 

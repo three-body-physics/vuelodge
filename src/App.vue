@@ -16,6 +16,8 @@ import gallery from "@/components/instagram"
 // import body from "@/components/body"
 // import create from "@/components/create"
 
+
+
 export default {
 
   components: {

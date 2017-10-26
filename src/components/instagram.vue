@@ -4,6 +4,9 @@
       <div class="eight wide middle aligned column">
         <a href="#"><i class="fa fa-instagram fa-5x"></i></a>
         <h3>Follow me on Instagram</h3>
+        <div class="ui divider">
+
+        </div>
         <p>@myPixelWindow</p>
 
       </div>

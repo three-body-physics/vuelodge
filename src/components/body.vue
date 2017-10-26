@@ -148,16 +148,16 @@
 
     <div class="ui stackable centered cards grid" id="ui-overrides">
 
-      <div v-for="entry in entries" class="doubling centered four wide column card" style="margin: 0.5em;">
+      <div v-for="entry in entries" class="doubling centered four wide column card" style="margin: 1em;">
         <div @click="goToBLog(entry._id)" class="image">
           <img v-bind:src="entry.image">
         </div>
         <div class="content">
-          <a @click="goToBLog(entry._id)" >
+          <a @click="goToBLog(entry._id)" class="header" >
           {{ entry.name }}
         </a>
           <div class="meta">
-            <span class="date">Posted: </span>
+            <span class="date">Posted: {{ entry.date }} </span>
           </div>
           <div class="ui divider">
           </div>
@@ -220,7 +220,7 @@ export default {
       this.$http.get("/api/blogs", {
         flag: "hello"
       }).then(function(data) {
-        this.entries = data.body;
+        this.entries = data.body.reverse();
       });
 
     },
@@ -231,6 +231,8 @@ export default {
     toggleLogin() {
       this.loginForm = !this.loginForm;
     }
+
+
 
 
     // read() {

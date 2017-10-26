@@ -47,8 +47,9 @@ export default {
 
   methods: {
     postRequest() {
+      var date = this.getTimeStamp();
 
-      this.$http.post("/api/blogs", {name: this.blog.name, image: this.blog.image, text: this.blog.text}, function(res) {
+      this.$http.post("/api/blogs", {name: this.blog.name, image: this.blog.image, text: this.blog.text, date: date}, function(res) {
 
         console.log(res);
       });
@@ -56,6 +57,24 @@ export default {
       this.$router.push("/home");
 
     },
+
+    getTimeStamp() {
+      var now = new Date();
+      var day = now.getDate();
+      var month = now.getMonth() + 1;
+      var year = now.getFullYear();
+
+      if (day < 10) {
+        day = "0" + day;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      return day + "/" + month + "/" + year;
+
+
+    }
 
 
     }

@@ -1,6 +1,31 @@
 <template>
+  <div>
+
+  <div class="ui inverted vertical masthead center aligned segment">
+
+
+    <div class="ui secondary fixed menu" id="navbar">
+      <div class="ui container">
+        <a href="/home" class="active item" id="homeNav">Home</a>
+        <a v-if="checkAuth()" href="/home/new" class="item">New Post</a>
+        
+        <div class="right menu">
+          <a href="/register" v-if="!checkAuth()" class="item">Register</a>
+
+        <span class="ui item" v-if="checkAuth()"> Hello {{ checkUser() }} </span>
+          <a class="ui item" v-if="checkAuth()" @click="userLogout()">
+      Logout
+    </a>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
 <div class="ui doubling stackable centered grid" id="content">
 <!-- <div class="ui doubling stackable centered grid container"> -->
+
 
   <div class="column">
 
@@ -17,7 +42,7 @@
               {{ entry.name }}
             </div>
             <div class="meta">
-              Posted By
+              Posted: {{ entry.date }} , {{ entry.author }}
             </div>
             <div class="ui divider">
 
@@ -50,7 +75,9 @@
 
     <form v-show="replyBox" class="ui reply form">
       <div class="field">
-        <input type="text" placeholder="Username" v-model="comment.author">
+        <div class="ui segment">
+          <p> Posting as: {{ checkUser() }}</p>
+        </div>
         <textarea placeholder="type your comment here" id="commentbox" v-model="comment.comment"></textarea>
       </div>
       <div class="ui blue labeled submit icon button" @click="postComment()">
@@ -62,12 +89,12 @@
 
 
 
-      <div class="ui right floated blue button" @click="toggleReply()">
+      <div v-bind:class='buttonClass' @click="toggleReply()">
         Add Comment
       </div>
 
       <div class="ui comments">
-        <h3 class="ui dividing header">{{ (entry.comments.length) }} comments</h3>
+        <h3 class="ui dividing header">{{ entry.comments.length | commentText("comment") }} </h3>
 
 
         <div v-for="comment in entry.comments" class="comment">
@@ -75,9 +102,9 @@
           <i class="big user circle icon"></i>
         </a>
           <div class="content">
-            <a class="author">{{ comment.author }}</a>
+            <a class="author">{{ comment.author.username }}</a>
             <div class="metadata">
-              <span class="date">Today at 5:42PM</span>
+              <span class="date"> {{ comment.date }} </span>
             </div>
             <div class="text">
               {{ comment.comment }}
@@ -96,6 +123,8 @@
 
   </div>
 </div>
+
+</div>
 </template>
 
 <script>
@@ -105,35 +134,108 @@ export default {
       id: this.$route.params.id,
       entry: {},
       replyBox: false,
-      comment: {
-        author: "",
-        comment: ""
+      comment: {        
+        comment: "",
+        
+      },
+      
+    }
+  },
+
+  computed: {
+    buttonClass: function(){
+      return {
+        "ui right floated blue button": this.checkAuth(),
+         "ui right floated blue disabled button": !this.checkAuth()
       }
     }
+
   },
 
   created() {
     this.postReq();
-    console.log(this.$route.path);
+    this.checkAuth();
+    
 
 },
 
+  filters: {
+
+    commentText: function(text, string) {
+      if (text >= 2) {
+        return text + " comments";
+      } else {
+        return text + " comment";
+      }
+    }
+  },
+
 methods: {
   postComment() {
-    this.$http.post("/api/blog/" + this.id, {_id: this.id, content: this.comment}, function(res) {
-      console.log(res)
 
+    var self = this;
+
+    this.$http.post("/api/blog/" + this.id, {_id: this.id, content: this.comment, userId: localStorage.getItem("userId"), username: localStorage.getItem("username"), date: this.getTimeStamp()}).then( function(res) {
+
+      this.postReq();
+
+
+    }, function(res) {
+      console.log(res);
     });
-      this.entry.comments.push(this.comment);
-
-    // this.$router.push("/home/blog/" + this.id);
-
+      
+ 
   },
+
+
+
+   checkAuth() {
+
+      var tk = "token: " + localStorage.getItem("JWTtoken");      
+
+      if (tk.length < 20) {
+      
+        return false;
+      } else {
+        
+        return true;
+      }
+
+    },
 
   toggleReply() {
     this.replyBox = !this.replyBox;
 
   },
+
+      userLogout() {
+      localStorage.removeItem("JWTtoken");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("username");
+     
+      var self = this;
+      setTimeout(function() {self.$router.push("/logout");}, 1000);   
+
+       
+    },
+
+    checkUser() {
+      var who = "" + localStorage.getItem("username");
+      return who; 
+    },
+
+       checkAuth() {
+
+      var tk = "token: " + localStorage.getItem("JWTtoken");      
+
+      if (tk.length < 20) {
+        return false;
+      } else {
+        return true;
+      }
+
+    },
+
 
   postReq() {
     this.$http.get("/api/blog/" + this.id, {
@@ -141,19 +243,37 @@ methods: {
     }).then(function(data) {
 
       this.entry = data.body;
-      console.log("request made!");
+      ;
+    }, function(res) {
+      console.log(res);
     });
 
-  }
+  },
+
+      getTimeStamp() {
+      var now = new Date();
+      var day = now.getDate();
+      var month = now.getMonth() + 1;
+      var year = now.getFullYear();
+
+      if (day < 10) {
+        day = "0" + day;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      return day + "/" + month + "/" + year;
+
+
+    }
 
 }
 }
 </script>
 
 <style scoped>
-.container {
-  margin-top: 3em;
-}
+
 
 #description {
   font-family:  helvetica, arial, sans-serif;
@@ -164,6 +284,7 @@ methods: {
 
 #commentSession {
   margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 
@@ -174,6 +295,54 @@ methods: {
 
 #content {
   margin: 0.01%;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
+
+#homeNav {
+  color: rgb(144, 50, 4);
+  font-weight: bold;
+}
+
+.masthead.segment {
+  margin-bottom: 3em;
+}
+
+.masthead h1.ui.header {
+  font-size: 2em;
+  margin-top: 9em;
+}
+
+.masthead h2 {
+
+  margin-bottom: 10em;
+  font-size: 1.2em;
+}
+
+.menu {
+  background: white;
+}
+
+#navbar {
+ 
+  background: white;
+
+}
+
+#navbar a {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  
+}
+
+.masthead {
+  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;
+}
+
+.right.menu {
+  margin-right: 1em;
 }
 
 

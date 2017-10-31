@@ -11,6 +11,8 @@ import SocialSharing from 'vue-social-sharing'
 import body from "@/components/body"
 import create from "@/components/create"
 import blog from "@/components/blog"
+import register from "@/components/register"
+import logout from "@/components/logout"
 
 Vue.use(vueResource);
 Vue.use(vueRouter);
@@ -25,7 +27,10 @@ const routes = [
   {path: "/", redirect: "/home"},
   {path: "/home", component: body},
   {path: "/home/new", component: create},
-  {path: "/home/blog/:id", component: blog}
+  {path: "/home/blog/:id", component: blog},
+  {path: "/register", component: register},
+  {path: "/logout", component: logout}
+  
 ]
 
 const router = new vueRouter({

@@ -16,7 +16,7 @@
       <textarea v-model="blog.text" placeholder="Type something here"></textarea>
     </div>
 
-    <button class="ui basic button" @click="postRequest">Submit</button>
+    <div class="ui basic button" @click="postRequest">Submit</div>
   </form>
 
 </div>
@@ -28,9 +28,9 @@ export default {
   data() {
     return {
       blog: {
-        name: "",
-        image: "",
-        text: ""
+        name: "Quebec",
+        image: "https://i.imgur.com/GxHsX4H.jpg",
+        text: "All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
       }
     }
   },
@@ -39,13 +39,16 @@ export default {
     postRequest() {
       var date = this.getTimeStamp();
 
-      this.$http.post("/api/blogs", {name: this.blog.name, image: this.blog.image, text: this.blog.text, date: date}).then(function(res) {
+      this.$http.post("/api/blogs", {name: this.blog.name, image: this.blog.image, text: this.blog.text, author: localStorage.getItem("username"), date: date}, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then(function(res) {
 
         console.log(res);
-
-      });
-
         this.$router.push("/home");
+
+      }, function(res) {
+
+        console.log("Error Unauthorized");
+        
+      });
 
     },
 
@@ -75,8 +78,10 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin-top: 6em;
+.container.segment {
+  margin-top: 9em;
   margin-bottom: 6em;
 }
+
+
 </style>

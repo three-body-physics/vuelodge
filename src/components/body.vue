@@ -4,9 +4,41 @@
   <!-- <div class="ui button" @click="toggleLogin()">
       login
     </div> -->
+  <div class="ui inverted vertical masthead center aligned segment">
 
-  <div v-show="loginForm" id="formholder" class="ui middle aligned center aligned grid">
-    <div class="six wide computer only column">
+  <div class="ui container">
+    <div class="ui secondary fixed menu" id="navbar">
+      <div class="ui container">
+        <a href="/home" class="active item" id="homeNav">Home</a>
+        <a v-if="checkAuth()" href="/home/new" class="item">New Post</a>
+        
+        <div class="right menu">
+          <a href="/register" v-if="!checkAuth()" class="item">Register</a>
+          <a class="ui item" v-if="!checkAuth()" @click="toggleLogin()">
+      Login
+    </a>
+        <span class="ui item" v-if="checkAuth()"> {{ checkUser() }} </span>
+          <a class="ui item" v-if="checkAuth()" @click="userLogout()">
+      Logout
+    </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui text container">
+    <h1 class="ui inverted header">
+          Welcome to my travel blog!
+        </h1>
+    <h2>Leave a comment if you see something you like!</h2>
+
+  </div>
+
+</div>
+
+  <div v-if="loginForm" id="formholder" class="ui middle aligned center aligned grid">
+
+    <div class="six wide computer only column" id="computerForm">
       <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
@@ -18,16 +50,16 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username">
+              <input type="text" placeholder="username" v-model="loginName">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password">
+              <input type="password" placeholder="password" v-model="loginPass">
             </div>
           </div>
-          <div class="ui fluid large teal submit button">
+          <div class="ui fluid large teal submit button" @click="userLogin">
             login
           </div>
           <div class="ui message">
@@ -38,8 +70,8 @@
         </div>
         <div v-show="errorForm" class="ui error message" id="errorMsg">
           <ul class="list">
-            <li>Please enter your username</li>
-            <li>Password must be at least 6 digits long</li>
+            <li>Username or password does not match.</li>
+            <li>Inputs are case sensitive.</li>
           </ul>
         </div>
 
@@ -47,7 +79,7 @@
     </div>
 
     <div class="mobile only sixteen wide column" id="mobileform">
-      <h2 class="ui teal image header">
+       <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
             <i class="fa fa-times-circle" @click="toggleLogin()"></i>
@@ -58,16 +90,16 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username">
+              <input type="text" placeholder="username" v-model="loginName">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password">
+              <input type="password" placeholder="password" v-model="loginPass">
             </div>
           </div>
-          <div class="ui fluid large teal submit button">
+          <div class="ui fluid large teal submit button" @click="userLogin">
             login
           </div>
           <div class="ui message">
@@ -78,8 +110,8 @@
         </div>
         <div v-show="errorForm" class="ui error message" id="errorMsg">
           <ul class="list">
-            <li>Please enter your username</li>
-            <li>Password must be at least 6 digits long</li>
+            <li>Username or password does not match.</li>
+            <li>Inputs are case sensitive.</li>
           </ul>
         </div>
 
@@ -87,7 +119,7 @@
     </div>
 
     <div class="tablet only ten wide column">
-      <h2 class="ui teal image header">
+  <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
             <i class="fa fa-times-circle" @click="toggleLogin()"></i>
@@ -98,16 +130,16 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username">
+              <input type="text" placeholder="username" v-model="loginName">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password">
+              <input type="password" placeholder="password" v-model="loginPass">
             </div>
           </div>
-          <div class="ui fluid large teal submit button">
+          <div class="ui fluid large teal submit button" @click="userLogin">
             login
           </div>
           <div class="ui message">
@@ -118,8 +150,8 @@
         </div>
         <div v-show="errorForm" class="ui error message" id="errorMsg">
           <ul class="list">
-            <li>Please enter your username</li>
-            <li>Password must be at least 6 digits long</li>
+            <li>Username or password does not match.</li>
+            <li>Inputs are case sensitive.</li>
           </ul>
         </div>
 
@@ -157,7 +189,7 @@
           {{ entry.name }}
         </a>
           <div class="meta">
-            <span class="date">Posted: {{ entry.date }} </span>
+            <span class="date">Posted: {{ entry.date }} , <strong>{{ entry.author }}</strong> </span>
           </div>
           <div class="ui divider">
           </div>
@@ -167,7 +199,7 @@
             </div>
           </div>
 
-          <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length }} comments </span>
+          <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length | commentText("comment") }}  </span>
         </div>
         <!-- <button @click="goToBLog(entry._id)" class="ui inverted orange button">Read More
         </button> -->
@@ -189,8 +221,9 @@
 </template>
 
 <script>
-export default {
+import userAuth from "./../router/userAuth.js";
 
+export default {
 
   data() {
     return {
@@ -198,38 +231,138 @@ export default {
       entryHolder: [],
       activeEntries: [],
       errorForm: false,
-      loginForm: false,
+      loginForm: false,      
       activePage: 0,
-      pages: []
+      pages: [],
+      loginName: "",
+      loginPass: "",
+      loggedUserName: "",
+
+      
 
     }
   },
+
   created() {
     this.getBlogs();
+ 
 
   },
 
-  updated() {
-    console.log(this.entries.length);
-  },
+  // updated() {
+  //   this.checkAuth();
+  //   console.log(this.userLogged);
+  // },
+
 
   // updated() {
   //   this.getBlogs();
   // },
 
   methods: {
+
     getBlogs() {
       this.$http.get("/api/blogs", {
+
         flag: "hello"
+
       }).then(function(data) {
 
         this.entries = data.body.reverse();
-        console.log(this.entries.length);
+      
         this.divideEntries();
+
       }).catch(function(error) {
+
         console.log(error);
+
       });
 
+    },
+
+     checkAuth() {
+
+      var tk = "token: " + localStorage.getItem("JWTtoken");      
+
+      if (tk.length < 20) {
+        return false;
+      } else {
+        return true;
+      }
+
+    },
+
+    checkUser() {
+      var who = "Hello " + localStorage.getItem("username");
+      return who; 
+    },
+
+    userLogin(username, password) {
+
+      if (username, password) {
+
+        this.$http.post("/api/login", {username: username, password: password}).then(function(res) {
+        
+        console.log(res);
+
+        localStorage.setItem("JWTtoken", res.body.token);
+        localStorage.setItem("userId", res.body.user._id);
+        localStorage.setItem("username", res.body.user.username);
+
+        this.loggedUser = "token: " + res.body.token;
+
+        if (this.loggedUser.length > 20){
+
+        this.loginForm = false;
+
+        }
+
+        this.$router.push("/")
+
+      }, function(res){
+        console.log(res);
+      });
+
+
+      } else {
+
+      this.$http.post("/api/login", {username: this.loginName, password: this.loginPass}).then(function(res) {
+        
+        console.log(res);
+        console.log("second call");
+    
+
+        if (res.body.success === true){
+
+        localStorage.setItem("JWTtoken", res.body.token);
+        localStorage.setItem("userId", res.body.user._id);
+        localStorage.setItem("username", res.body.user.username);  
+        this.loginForm = false;
+
+        } else {
+          this.errorForm = true;
+        }
+
+
+
+      }, function(res){
+        console.log(res);
+      });
+
+      }
+
+    },
+    
+
+    userLogout() {
+      localStorage.removeItem("JWTtoken");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("username");
+     
+      var self = this;
+      setTimeout(function() {self.$router.push("/logout");}, 1000);   
+
+       
     },
 
     pageToggle(num) {
@@ -252,12 +385,12 @@ export default {
         this.pages.push(i);
       }
 
-
-
       for (let i = 0; i <= this.entries.length / 6; i++) {
         this.entryHolder[i] = this.entries.slice((6 * i), ((6 * i) + 6));
       }
+
       this.pagination();
+
     },
 
     pagination() {
@@ -265,26 +398,8 @@ export default {
     }
 
 
-
-
-    // read() {
-    //   this.$http.get("/blogs/123045").then(function(data) {
-    //     console.log("vue says hi");
-    //   });
-    // },
-
   },
 
-  // watch: {
-  //   '$route' (to, from) {
-  //
-  //         if (from.params.id !== to.params.id) {
-  //
-  //           console.log("route changed");
-  //
-  //         }
-  //       }
-  // },
 
   filters: {
     limitText: function(text, limit) {
@@ -292,6 +407,14 @@ export default {
         return text;
       } else {
         return text.substring(0, limit) + "...";
+      }
+    },
+
+    commentText: function(text, string) {
+      if (text >= 2) {
+        return text + " comments";
+      } else {
+        return text + " comment";
       }
     }
   }
@@ -313,6 +436,7 @@ export default {
 #formholder {
   position: relative;
   z-index: 1;
+  margin-bottom: 1.5em;
 }
 
 
@@ -321,7 +445,7 @@ export default {
   background: rgba(255, 255, 255, 1);
 }
 
-.container {
+.grid.container {
   margin-top: 2em;
 }
 
@@ -333,6 +457,9 @@ export default {
   display: block;
 }
 
+#computerForm {
+  top: 25%;
+}
 
 /*#blogpost:nth-child(n+1) {
   margin-top: 4em;
@@ -348,6 +475,7 @@ img {
 
 #headerRow {
   padding: 0px;
+
 }
 
 
@@ -378,7 +506,41 @@ img {
   margin-bottom: 3em;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
 
+#homeNav {
+  color: rgb(144, 50, 4);
+  font-weight: bold;
+}
+
+.masthead h1.ui.header {
+  font-size: 2em;
+  margin-top: 9em;
+}
+
+.masthead h2 {
+
+  margin-bottom: 10em;
+  font-size: 1.2em;
+}
+
+.menu {
+  background: white;
+}
+
+#navbar {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 1em;
+  background: white;
+}
+
+.masthead {
+  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;
+}
+
+.right.menu {
+  margin-right: 1em;
+}
 
 /*.row {
    display: flex;

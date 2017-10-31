@@ -7,30 +7,70 @@
   <div class="ui inverted vertical masthead center aligned segment">
 
   <div class="ui container">
-    <div class="ui secondary fixed menu" id="navbar">
-      <div class="ui container">
-        <a href="/home" class="active item" id="homeNav">Home</a>
-        <a v-if="checkAuth()" href="/home/new" class="item">New Post</a>
+    <div class="ui computer only tablet only grid">
+      <div class="ui fixed secondary menu" id="navbar">
+        <div class="ui container">
+
+          
+
+          <a href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+          </a>
+
+        
         
         <div class="right menu">
-          <a href="/register" v-if="!checkAuth()" class="item">Register</a>
-          <a class="ui item" v-if="!checkAuth()" @click="toggleLogin()">
-      Login
-    </a>
-        <span class="ui item" v-if="checkAuth()"> {{ checkUser() }} </span>
-          <a class="ui item" v-if="checkAuth()" @click="userLogout()">
-      Logout
-    </a>
+          <div class="item"><a class="ui orange button" v-if="checkAuth()" href="/home/new">New Post</a></div>
+          <div class="item"><a href="/register" v-if="!checkAuth()" class="ui inverted blue button">Register</a></div>
+          <div class="item">
+          <a class="ui inverted orange button" v-show="!checkAuth()" @click="toggleLogin()">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+           </a>
+          </div>
+        
+        <div class="item"><span v-if="checkAuth()"> {{ checkUser() }} </span></div>
+        <div class="item"><a class="ui item" v-if="checkAuth()" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+          </a>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <div class="ui mobile only grid">
+      <div class="ui fixed secondary menu" id="navbar">
+        <div class="ui container">
+          <a href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+          </a>
+
+        
+        
+        <div class="right menu">
+          <div class="item"><a class="ui orange button" v-if="checkAuth()" href="/home/new">Post</a></div>
+          <div class="item"><a href="/register" v-if="!checkAuth()" class="ui inverted blue button">Register</a></div>
+          <div class="item">
+          <a class="ui inverted orange button" v-show="!checkAuth()" @click="toggleLogin()">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+           </a>
+          </div>
+        
+       <!--  <div class="item"><span v-if="checkAuth()"> {{ checkUser() }} </span></div> -->
+        <div class="item"><a class="ui item" v-if="checkAuth()" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+          </a>
+        </div>
+          
         </div>
       </div>
     </div>
   </div>
+  
+  </div>
 
   <div class="ui text container">
-    <h1 class="ui inverted header">
-          Welcome to my travel blog!
+    <h1 class="ui inverted header" id="bannerh1">
+          Share your adventure with the world!
         </h1>
-    <h2>Leave a comment if you see something you like!</h2>
+    <h2>Register now to start posting.</h2 id="bannerh2">
 
   </div>
 
@@ -64,7 +104,7 @@
           </div>
           <div class="ui message">
             "New to us?"
-            <a href="#">Register here</a>
+            <a href="/register">Register here</a>
           </div>
 
         </div>
@@ -104,7 +144,7 @@
           </div>
           <div class="ui message">
             "New to us?"
-            <a href="#">Register here</a>
+            <a href="/register">Register here</a>
           </div>
 
         </div>
@@ -144,7 +184,7 @@
           </div>
           <div class="ui message">
             "New to us?"
-            <a href="#">Register here</a>
+            <a href="/register">Register here</a>
           </div>
 
         </div>
@@ -422,11 +462,11 @@ export default {
 </script>
 
 <style scoped>
-/*#holder {
-  position: relative;
+
+@import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Fjalla+One');
 
 
-}*/
 
 #pagination {
   margin-top: 3em;
@@ -506,7 +546,8 @@ img {
   margin-bottom: 3em;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
+
+
 
 #homeNav {
   color: rgb(144, 50, 4);
@@ -535,7 +576,8 @@ img {
 }
 
 .masthead {
-  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;
+/*  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;*/
+  background: url("https://i.redd.it/lghllrc86vdy.jpg") no-repeat center center fixed !important;
 }
 
 .right.menu {

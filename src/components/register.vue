@@ -1,11 +1,11 @@
 <template>
 
 	<div id="formholder" class="ui middle aligned center aligned grid">
+
     <div class="six wide computer only column">
       <h2 class="ui teal image header">
           <div class="content">
-            Register an account
-           
+            Register an account           
           </div>
         </h2>
       <form class="ui large form">
@@ -13,17 +13,21 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username" v-model="username">
+              <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password" v-model="userPass">
+              <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
             </div>
           </div>
-          <div class="ui fluid large teal submit button" @click="userRegister">
+          <div :class="submitClass" @click="userRegister">
             Register
+          </div>
+           <div class="ui message">
+            Already registered?
+            <a href="/home"> Login here</a>
           </div>
          
 
@@ -49,17 +53,21 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username">
+              <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password">
+              <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
             </div>
           </div>
           <div class="ui fluid large teal submit button">
             Register
+          </div>
+          <div class="ui message">
+            Already registered?
+            <a href="/home"> Login here</a>
           </div>
  
 
@@ -85,17 +93,21 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username">
+              <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password">
+              <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
             </div>
           </div>
           <div class="ui fluid large teal submit button">
             Register
+          </div>
+          <div class="ui message">
+            Already registered?
+            <a href="/home"> Login here</a>
           </div>
 
         </div>
@@ -123,7 +135,7 @@ export default {
     	username: "",
     	userPass: "",
     	errorMessage: "",
-    	errorForm: false
+    	errorForm: false    	
     }
   },
   methods: {
@@ -162,6 +174,15 @@ export default {
   			console.log(res);
   			
   		});
+  	},
+
+  	validateForm() {
+
+  		if (this.username.length >= 4 && this.userPass.length >= 4) {
+  			return true;
+  		} else {
+  			return false;
+  		}
   	}
 
 
@@ -169,6 +190,16 @@ export default {
 
 
 
+  }, 
+  computed: {
+  	submitClass: function() {
+  	
+  		return {
+  			"ui fluid large teal submit button": this.validateForm(),
+  			"ui fluid large teal submit disabled button": !this.validateForm()
+  		}
+
+  	}
   }
 
 }

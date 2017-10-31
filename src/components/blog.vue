@@ -4,18 +4,20 @@
   <div class="ui inverted vertical masthead center aligned segment">
 
 
-    <div class="ui secondary fixed menu" id="navbar">
+    <div class="ui fixed secondary menu" id="navbar">
       <div class="ui container">
-        <a href="/home" class="active item" id="homeNav">Home</a>
-        <a v-if="checkAuth()" href="/home/new" class="item">New Post</a>
+        <div class="item"> <a href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+        </a></div>                
         
         <div class="right menu">
-          <a href="/register" v-if="!checkAuth()" class="item">Register</a>
+          <div class="item"><a v-if="checkAuth()" href="/home/new" class="ui inverted orange button">New Post</a></div>
+          <div class="item"><a href="/register" v-if="!checkAuth()" class="ui inverted blue button">Register</a></div>
+          <!-- <div class="item"><span class="ui item" v-show="checkAuth()"> Hello {{ checkUser() }} </span></div> -->
+          <div class="item"><a class="ui item" v-if="checkAuth()" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
+          
 
-        <span class="ui item" v-if="checkAuth()"> Hello {{ checkUser() }} </span>
-          <a class="ui item" v-if="checkAuth()" @click="userLogout()">
-      Logout
-    </a>
+        
+ 
         </div>
       </div>
     </div>
@@ -75,8 +77,8 @@
 
     <form v-show="replyBox" class="ui reply form">
       <div class="field">
-        <div class="ui segment">
-          <p> Posting as: {{ checkUser() }}</p>
+        <div class="ui floating message">
+          <p>Posting as: {{ checkUser() }}</p>
         </div>
         <textarea placeholder="type your comment here" id="commentbox" v-model="comment.comment"></textarea>
       </div>

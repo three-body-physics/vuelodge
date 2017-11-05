@@ -9,26 +9,22 @@
   <div class="ui container">
     <div class="ui computer only tablet only grid">
       <div class="ui fixed secondary menu" id="navbar">
-        <div class="ui container">
+        <div class="ui container">          
 
-          
-
-          <a href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
-          </a>
-
+          <a style="margin: 0px;" href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+          </a>        
         
-        
-        <div class="right menu">
-          <div class="item"><a class="ui orange button" v-if="checkAuth()" href="/home/new">New Post</a></div>
-          <div class="item"><a href="/register" v-if="!checkAuth()" class="ui inverted blue button">Register</a></div>
-          <div class="item">
-          <a class="ui inverted orange button" v-show="!checkAuth()" @click="toggleLogin()">
+        <div style="margin: 0px;" class="right menu">
+          <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui orange button" href="/home/new">New Post</a></div>
+          <div v-if="!checkAuth()" style="margin: 0px;" class="item"><a href="/register" class="ui inverted blue button">Register</a></div>
+          <div v-show="!checkAuth()" style="margin: 0px;" class="item">
+          <a class="ui inverted orange button" @click="toggleLogin()">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login
            </a>
           </div>
         
-        <div class="item"><span v-if="checkAuth()"> {{ checkUser() }} </span></div>
-        <div class="item"><a class="ui item" v-if="checkAuth()" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+        <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i> {{ checkUser() }} </a></div>
+        <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
           </a>
         </div>
           
@@ -45,17 +41,17 @@
 
         
         
-        <div class="right menu">
-          <div class="item"><a class="ui orange button" v-if="checkAuth()" href="/home/new">Post</a></div>
-          <div class="item"><a href="/register" v-if="!checkAuth()" class="ui inverted blue button">Register</a></div>
-          <div class="item">
-          <a class="ui inverted orange button" v-show="!checkAuth()" @click="toggleLogin()">
+        <div style="margin: 0px;" class="right menu">
+          <div style="margin: 0px;" class="item" v-if="checkAuth()"><a class="ui orange button" href="/home/new">Post</a></div>
+          <div style="margin: 0px;" class="item" v-if="!checkAuth()"><a href="/register" class="ui inverted blue button">Register</a></div>
+          <div style="margin: 0px;" class="item"  v-show="!checkAuth()">
+          <a class="ui inverted orange button" @click="toggleLogin()">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login
            </a>
           </div>
         
-       <!--  <div class="item"><span v-if="checkAuth()"> {{ checkUser() }} </span></div> -->
-        <div class="item"><a class="ui item" v-if="checkAuth()" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+        <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
+        <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
           </a>
         </div>
           
@@ -302,7 +298,7 @@ export default {
   methods: {
 
     getBlogs() {
-      this.$http.get("/api/blogs", {
+      this.$http.get("/api/home", {
 
         flag: "hello"
 
@@ -333,7 +329,7 @@ export default {
     },
 
     checkUser() {
-      var who = "Hello " + localStorage.getItem("username");
+      var who = "" + localStorage.getItem("username");
       return who; 
     },
 
@@ -405,13 +401,27 @@ export default {
        
     },
 
+    userProfile(username) {
+
+      if (username) {
+
+        this.$router.push("/home/user/" + username);
+
+      } else {
+
+        this.$router.push("/home/user/" + "" + localStorage.getItem("username"));
+
+      }
+
+    },
+
     pageToggle(num) {
       this.activePage = num;
       this.pagination();
     },
 
     goToBLog(id) {
-      this.$router.push("/home/blog/" + id);
+      this.$router.push("/home/entry/" + id);
     },
 
     toggleLogin() {
@@ -550,8 +560,7 @@ img {
 
 
 #homeNav {
-  color: rgb(144, 50, 4);
-  font-weight: bold;
+   font-weight: bold;
 }
 
 .masthead h1.ui.header {

@@ -1,7 +1,6 @@
 <template>
 <div id="app">
 
-
   <router-view></router-view>
   <app-gallery></app-gallery>
   <app-footer></app-footer>

@@ -13,6 +13,7 @@ import create from "@/components/create"
 import blog from "@/components/blog"
 import register from "@/components/register"
 import logout from "@/components/logout"
+import userprofile from "@/components/userprofile"
 
 Vue.use(vueResource);
 Vue.use(vueRouter);
@@ -27,9 +28,10 @@ const routes = [
   {path: "/", redirect: "/home"},
   {path: "/home", component: body},
   {path: "/home/new", component: create},
-  {path: "/home/blog/:id", component: blog},
+  {path: "/home/entry/:id", component: blog},
   {path: "/register", component: register},
-  {path: "/logout", component: logout}
+  {path: "/logout", component: logout},
+  {path: "/home/user/:userprofile", component: userprofile}
   
 ]
 

@@ -13,13 +13,13 @@
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
+              <input type="text" placeholder="username 5-10 characters" v-model="username" maxlength="10">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
+              <input type="password" placeholder="password 5-10 characters" v-model="userPass" maxlength="10">
             </div>
           </div>
           <div :class="submitClass" @click="userRegister">
@@ -184,11 +184,6 @@ export default {
   			return false;
   		}
   	}
-
-
-
-
-
 
   }, 
   computed: {

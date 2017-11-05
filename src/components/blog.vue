@@ -1,19 +1,18 @@
 <template>
   <div>
 
-  <div class="ui inverted vertical masthead center aligned segment">
-
-
+ 
     <div class="ui fixed secondary menu" id="navbar">
       <div class="ui container">
-        <div class="item"> <a href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
-        </a></div>                
+         <a href="/home" style="margin: 0px;" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+        </a>           
         
-        <div class="right menu">
-          <div class="item"><a v-if="checkAuth()" href="/home/new" class="ui inverted orange button">New Post</a></div>
-          <div class="item"><a href="/register" v-if="!checkAuth()" class="ui inverted blue button">Register</a></div>
+        <div class="right menu" style="margin: 0px;">
+          <div class="item" v-if="checkAuth()" style="margin: 0px;"><a  href="/home/new" class="ui inverted orange button">New Post</a></div>
+          <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
+          <div class="item" v-if="!checkAuth()" style="margin: 0px;"><a href="/register" class="ui inverted blue button">Register</a></div>
           <!-- <div class="item"><span class="ui item" v-show="checkAuth()"> Hello {{ checkUser() }} </span></div> -->
-          <div class="item"><a class="ui item" v-if="checkAuth()" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
+          <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
           
 
         
@@ -23,7 +22,6 @@
     </div>
 
 
-</div>
 
 <div class="ui doubling stackable centered grid" id="content">
 <!-- <div class="ui doubling stackable centered grid container"> -->
@@ -104,7 +102,7 @@
           <i class="big user circle icon"></i>
         </a>
           <div class="content">
-            <a class="author">{{ comment.author.username }}</a>
+            <i class="author">{{ comment.author.username }}</i>
             <div class="metadata">
               <span class="date"> {{ comment.date }} </span>
             </div>
@@ -177,9 +175,11 @@ methods: {
 
     var self = this;
 
-    this.$http.post("/api/blog/" + this.id, {_id: this.id, content: this.comment, userId: localStorage.getItem("userId"), username: localStorage.getItem("username"), date: this.getTimeStamp()}).then( function(res) {
+    this.$http.post("/api/home/entry/" + this.id, {_id: this.id, content: this.comment, userId: localStorage.getItem("userId"), username: localStorage.getItem("username"), date: this.getTimeStamp()}, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then( function(res) {
 
-      this.postReq();
+      console.log(res.body.post);
+
+      this.entry = res.body.post;
 
 
     }, function(res) {
@@ -187,6 +187,11 @@ methods: {
     });
       
  
+  },
+
+
+  userProfile() {
+    this.$router.push("/home/user/" + localStorage.getItem("username"));
   },
 
 
@@ -240,12 +245,12 @@ methods: {
 
 
   postReq() {
-    this.$http.get("/api/blog/" + this.id, {
+    this.$http.get("/api/home/entry/" + this.id, {
       flag: "hi"
     }).then(function(data) {
 
       this.entry = data.body;
-      ;
+      
     }, function(res) {
       console.log(res);
     });
@@ -302,25 +307,6 @@ methods: {
 
 @import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
 
-#homeNav {
-  color: rgb(144, 50, 4);
-  font-weight: bold;
-}
-
-.masthead.segment {
-  margin-bottom: 3em;
-}
-
-.masthead h1.ui.header {
-  font-size: 2em;
-  margin-top: 9em;
-}
-
-.masthead h2 {
-
-  margin-bottom: 10em;
-  font-size: 1.2em;
-}
 
 .menu {
   background: white;

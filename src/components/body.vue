@@ -257,7 +257,6 @@
 </template>
 
 <script>
-import userAuth from "./../router/userAuth.js";
 
 export default {
 

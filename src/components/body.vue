@@ -6,67 +6,65 @@
     </div> -->
   <div class="ui inverted vertical masthead center aligned segment">
 
-  <div class="ui container">
-    <div class="ui computer only tablet only grid">
-      <div class="ui fixed secondary menu" id="navbar">
-        <div class="ui container">          
+    <div class="ui container">
+      <div class="ui computer only tablet only grid">
+        <div class="ui fixed secondary menu" id="navbar">
+          <div class="ui container">
 
-          <a style="margin: 0px;" href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
-          </a>        
-        
-        <div style="margin: 0px;" class="right menu">
-          <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui orange button" href="/home/new">New Post</a></div>
-          <div v-if="!checkAuth()" style="margin: 0px;" class="item"><a href="/register" class="ui inverted blue button">Register</a></div>
-          <div v-show="!checkAuth()" style="margin: 0px;" class="item">
-          <a class="ui inverted orange button" @click="toggleLogin()">
+            <router-link style="margin: 0px;" to="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+          </router-link>
+
+            <div style="margin: 0px;" class="right menu">
+              <div v-if="checkAuth()" style="margin: 0px;" class="item"><router-link class="ui orange button" to="/home/new">New Post</router-link></div>
+              <div v-if="!checkAuth()" style="margin: 0px;" class="item"><router-link to="/register" class="ui inverted blue button">Register</router-link></div>
+              <div v-show="!checkAuth()" style="margin: 0px;" class="item">
+                <a class="ui inverted orange button" @click="toggleLogin()">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login
            </a>
-          </div>
-        
-        <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i> {{ checkUser() }} </a></div>
-        <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+              </div>
+
+              <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i> {{ checkUser() }} </a></div>
+              <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
           </a>
-        </div>
-          
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div> 
 
-  <div class="ui mobile only grid">
-      <div class="ui fixed secondary menu" id="navbar">
-        <div class="ui container">
-          <a href="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
-          </a>
+      <div class="ui mobile only grid">
+        <div class="ui fixed secondary menu" id="navbar">
+          <div class="ui container">
+            <router-link to="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+          </router-link>
 
-        
-        
-        <div style="margin: 0px;" class="right menu">
-          <div style="margin: 0px;" class="item" v-if="checkAuth()"><a class="ui orange button" href="/home/new">Post</a></div>
-          <div style="margin: 0px;" class="item" v-if="!checkAuth()"><a href="/register" class="ui inverted blue button">Register</a></div>
-          <div style="margin: 0px;" class="item"  v-show="!checkAuth()">
-          <a class="ui inverted orange button" @click="toggleLogin()">
+            <div style="margin: 0px;" class="right menu">
+              <div style="margin: 0px;" class="item" v-if="checkAuth()"><router-link class="ui orange button" to="/home/new">Post</router-link></div>
+              <div style="margin: 0px;" class="item" v-if="!checkAuth()"><router-link to="/register" class="ui inverted blue button">Register</router-link></div>
+              <div style="margin: 0px;" class="item" v-show="!checkAuth()">
+                <a class="ui inverted orange button" @click="toggleLogin()">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login
            </a>
-          </div>
-        
-        <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
-        <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+              </div>
+
+              <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
+              <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
           </a>
-        </div>
-          
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  
-  </div>
 
-  <div class="ui text container">
-    <h1 class="ui inverted header" id="bannerh1">
+    </div>
+
+    <div class="ui text container">
+      <h1 class="ui inverted header" id="bannerh1">
           Share your adventure with the world!
         </h1>
-    <h2>Register now to start posting.</h2 id="bannerh2">
+      <h2>Register now to start posting.</h2 id="bannerh2">
 
   </div>
 
@@ -100,7 +98,7 @@
           </div>
           <div class="ui message">
             "New to us?"
-            <a href="/register">Register here</a>
+            <router-link to="/register">Register here</router-link>
           </div>
 
         </div>
@@ -115,7 +113,7 @@
     </div>
 
     <div class="mobile only sixteen wide column" id="mobileform">
-       <h2 class="ui teal image header">
+      <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
             <i class="fa fa-times-circle" @click="toggleLogin()"></i>
@@ -140,7 +138,7 @@
           </div>
           <div class="ui message">
             "New to us?"
-            <a href="/register">Register here</a>
+            <router-link to="/register">Register here</router-link>
           </div>
 
         </div>
@@ -155,7 +153,7 @@
     </div>
 
     <div class="tablet only ten wide column">
-  <h2 class="ui teal image header">
+      <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
             <i class="fa fa-times-circle" @click="toggleLogin()"></i>
@@ -180,7 +178,7 @@
           </div>
           <div class="ui message">
             "New to us?"
-            <a href="/register">Register here</a>
+            <router-link to="/register">Register here</router-link>
           </div>
 
         </div>
@@ -257,7 +255,6 @@
 </template>
 
 <script>
-
 export default {
 
   data() {
@@ -266,48 +263,35 @@ export default {
       entryHolder: [],
       activeEntries: [],
       errorForm: false,
-      loginForm: false,      
+      loginForm: false,
       activePage: 0,
       pages: [],
       loginName: "",
       loginPass: "",
       loggedUserName: "",
 
-      
-
     }
   },
 
   created() {
     this.getBlogs();
- 
 
   },
-
-  // updated() {
-  //   this.checkAuth();
-  //   console.log(this.userLogged);
-  // },
-
-
-  // updated() {
-  //   this.getBlogs();
-  // },
 
   methods: {
 
     getBlogs() {
-      this.$http.get("/api/home", {
+      this.$http.get("https://young-sands-22811.herokuapp.com/api/home", {
 
         flag: "hello"
 
       }).then(function(data) {
 
         this.entries = data.body.reverse();
-      
+
         this.divideEntries();
 
-      }).catch(function(error) {
+      }, function(error) {
 
         console.log(error);
 
@@ -315,9 +299,9 @@ export default {
 
     },
 
-     checkAuth() {
+    checkAuth() {
 
-      var tk = "token: " + localStorage.getItem("JWTtoken");      
+      var tk = "token: " + localStorage.getItem("JWTtoken");
 
       if (tk.length < 20) {
         return false;
@@ -329,75 +313,76 @@ export default {
 
     checkUser() {
       var who = "" + localStorage.getItem("username");
-      return who; 
+      return who;
     },
 
     userLogin(username, password) {
 
       if (username, password) {
 
-        this.$http.post("/api/login", {username: username, password: password}).then(function(res) {
-        
-        console.log(res);
+        this.$http.post("https://young-sands-22811.herokuapp.com/api/login", {
+          username: username,
+          password: password
+        }).then(function(res) {
 
-        localStorage.setItem("JWTtoken", res.body.token);
-        localStorage.setItem("userId", res.body.user._id);
-        localStorage.setItem("username", res.body.user.username);
+          console.log(res);
 
-        this.loggedUser = "token: " + res.body.token;
+          localStorage.setItem("JWTtoken", res.body.token);
+          localStorage.setItem("userId", res.body.user._id);
+          localStorage.setItem("username", res.body.user.username);
 
-        if (this.loggedUser.length > 20){
+          this.loggedUser = "token: " + res.body.token;
 
-        this.loginForm = false;
+          if (this.loggedUser.length > 20) {
 
-        }
+            this.loginForm = false;
 
-        this.$router.push("/")
+          }
 
-      }, function(res){
-        console.log(res);
-      });
+          this.$router.push("/")
+
+        }, function(err) {
+          console.log(err);
+        });
 
 
       } else {
 
-      this.$http.post("/api/login", {username: this.loginName, password: this.loginPass}).then(function(res) {
-        
-        console.log(res);
-        console.log("second call");
-    
+        this.$http.post("https://young-sands-22811.herokuapp.com/api/login", {
+          username: this.loginName,
+          password: this.loginPass
+        }).then(function(res) {
 
-        if (res.body.success === true){
+          console.log(res);
+          console.log("second call");
 
-        localStorage.setItem("JWTtoken", res.body.token);
-        localStorage.setItem("userId", res.body.user._id);
-        localStorage.setItem("username", res.body.user.username);  
-        this.loginForm = false;
+          if (res.body.success === true) {
 
-        } else {
-          this.errorForm = true;
-        }
+            localStorage.setItem("JWTtoken", res.body.token);
+            localStorage.setItem("userId", res.body.user._id);
+            localStorage.setItem("username", res.body.user.username);
+            this.loginForm = false;
 
+          } else {
+            this.errorForm = true;
+          }
 
-
-      }, function(res){
-        console.log(res);
-      });
-
+        }, function(res) {
+          console.log(res);
+        });
       }
-
     },
-    
 
     userLogout() {
       localStorage.removeItem("JWTtoken");
       localStorage.removeItem("userId");
       localStorage.removeItem("username");
-     
-      var self = this;
-      setTimeout(function() {self.$router.push("/logout");}, 1000);   
 
-       
+      var self = this;
+      setTimeout(function() {
+        self.$router.push("/logout");
+      }, 1000);
+
     },
 
     userProfile(username) {
@@ -429,7 +414,6 @@ export default {
 
     divideEntries() {
 
-
       for (let i = 0; i <= this.entries.length / 6; i++) {
         this.pages.push(i);
       }
@@ -439,16 +423,13 @@ export default {
       }
 
       this.pagination();
-
     },
 
     pagination() {
       this.activeEntries = this.entryHolder[this.activePage];
     }
 
-
   },
-
 
   filters: {
     limitText: function(text, limit) {
@@ -471,10 +452,8 @@ export default {
 </script>
 
 <style scoped>
-
 @import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
 @import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Fjalla+One');
-
 
 
 #pagination {
@@ -487,7 +466,6 @@ export default {
   z-index: 1;
   margin-bottom: 1.5em;
 }
-
 
 #formholder .column {
   position: fixed;
@@ -510,6 +488,7 @@ export default {
   top: 25%;
 }
 
+
 /*#blogpost:nth-child(n+1) {
   margin-top: 4em;
 }*/
@@ -524,9 +503,7 @@ img {
 
 #headerRow {
   padding: 0px;
-
 }
-
 
 .segment {
   border: 0px !important;
@@ -555,11 +532,8 @@ img {
   margin-bottom: 3em;
 }
 
-
-
-
 #homeNav {
-   font-weight: bold;
+  font-weight: bold;
 }
 
 .masthead h1.ui.header {
@@ -584,13 +558,14 @@ img {
 }
 
 .masthead {
-/*  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;*/
+  /*  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;*/
   background: url("https://i.redd.it/lghllrc86vdy.jpg") no-repeat center center fixed !important;
 }
 
 .right.menu {
   margin-right: 1em;
 }
+
 
 /*.row {
    display: flex;

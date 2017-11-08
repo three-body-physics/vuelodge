@@ -1,6 +1,6 @@
 <template>
 <div class="ui main text container segment">
-  <div class="ui huge header" ><a href="/home"><i class="fa fa-caret-square-o-left" style="letter-spacing: 0.25em; color: black;"></i></a>Create New Post</div>
+  <div class="ui huge header"><router-link to="/home"><i class="fa fa-caret-square-o-left" style="letter-spacing: 0.25em; color: black;"></i></router-link>Create New Post</div>
 
   <form class="ui form">
     <div class="field">
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -39,7 +38,17 @@ export default {
     postRequest() {
       var date = this.getTimeStamp();
 
-      this.$http.post("/api/home", {name: this.blog.name, image: this.blog.image, text: this.blog.text, author: localStorage.getItem("username"), date: date}, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then(function(res) {
+      this.$http.post("https://young-sands-22811.herokuapp.com/api/home", {
+        name: this.blog.name,
+        image: this.blog.image,
+        text: this.blog.text,
+        author: localStorage.getItem("username"),
+        date: date
+      }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("JWTtoken")
+        }
+      }).then(function(res) {
 
         console.log(res);
         this.$router.push("/home");
@@ -47,7 +56,7 @@ export default {
       }, function(res) {
 
         console.log("Error Unauthorized");
-        
+
       });
 
     },
@@ -67,14 +76,10 @@ export default {
 
       return day + "/" + month + "/" + year;
 
-
     }
 
-
-    }
   }
-
-
+}
 </script>
 
 <style scoped>
@@ -82,6 +87,4 @@ export default {
   margin-top: 9em;
   margin-bottom: 6em;
 }
-
-
 </style>

@@ -27,7 +27,7 @@
           </div>
            <div class="ui message">
             Already registered?
-            <a href="/home"> Login here</a>
+            <router-link to="/home"> Login here</router-link>
           </div>
          
 
@@ -67,7 +67,7 @@
           </div>
           <div class="ui message">
             Already registered?
-            <a href="/home"> Login here</a>
+            <router-link to="/home"> Login here</router-link>
           </div>
  
 
@@ -107,7 +107,7 @@
           </div>
           <div class="ui message">
             Already registered?
-            <a href="/home"> Login here</a>
+            <router-link to="/home"> Login here</router-link>
           </div>
 
         </div>
@@ -144,7 +144,7 @@ export default {
 
   		var self = this;
 
-  		this.$http.post("/api/register", {username: this.username, password: this.userPass}).then(function(res) {
+  		this.$http.post("https://young-sands-22811.herokuapp.com/api/register", {username: this.username, password: this.userPass}).then(function(res) {
 
   			if (res.body.success === false) {
 

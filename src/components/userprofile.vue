@@ -4,11 +4,11 @@
 
 	    <div class="ui fixed secondary menu" id="navbar">
       <div class="ui container">
-         <a href="/home" style="margin: 0px;" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
-        </a>           
+         <router-link to="/home" style="margin: 0px;" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+        </router-link>           
         
         <div class="right menu" style="margin: 0px;">
-          <div class="item" v-if="checkAuth()" style="margin: 0px;"><a  href="/home/new" class="ui inverted orange button">New Post</a></div>
+          <div class="item" v-if="checkAuth()" style="margin: 0px;"><router-link  to="/home/new" class="ui inverted orange button">New Post</router-link></div>
      
           <!-- <div class="item"><span class="ui item" v-show="checkAuth()"> Hello {{ checkUser() }} </span></div> -->
           <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
@@ -22,10 +22,11 @@
 
   <div id="formholder" v-if="deleteCofirmation" class="ui middle aligned center aligned doubling grid">
 
-    <div class="eight wide ccolumn" style="background: white;">
+    
+    <div class="computer only tablet only sixteen wide column" style="background: white;">
       <h2 class="ui red image header">
-          <div class="content">
-            Enter your password to proceed
+          <div class="content" style="padding: 1em;">
+            Type Yes to proceed
             <i class="fa fa-times-circle" style="cursor: pointer;" @click="toggleDelete()"></i>
           </div>
         </h2>
@@ -44,11 +45,47 @@
         </div>
         <div v-show="errorDelete" class="ui error message" id="errorMsg">
           <ul class="list">
-            <li>Wrong password.</li>            
+            <li>Delete request failed, no permission</li>            
           </ul>
         </div>
 
       </form>
+    </div>
+  
+
+</div>
+
+  <div id="mobileFormholder" v-if="deleteCofirmation" class="ui mobile only middle aligned center aligned grid">
+
+    <div class="row">
+    <div class="sixteen wide column" style="background: white;">
+      <h2 class="ui red image header">
+          <div class="content">
+            Type Yes to proceed
+            <i class="fa fa-times-circle" style="cursor: pointer;" @click="toggleDelete()"></i>
+          </div>
+        </h2>
+      <form class="ui large form">
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="text" placeholder="type yes to confirm" v-model="yesString">
+            </div>
+          </div>
+          <div v-bind:class="yesClass" @click="deleteRequest()">
+            Delete
+          </div>   
+
+        </div>
+        <div v-show="errorDelete" class="ui error message" id="errorMsg">
+          <ul class="list">
+            <li>Delete request failed, no permission</li>            
+          </ul>
+        </div>
+
+      </form>
+    </div>
     </div>
 
 </div>
@@ -131,7 +168,7 @@ export default {
     getUserPosts() {
     	var self = this;
 
-    	this.$http.post("/api/home/user/" + localStorage.getItem("userId"), {userId: localStorage.getItem("userId"), username: localStorage.getItem("username")}, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then(function(res){
+    	this.$http.post("https://young-sands-22811.herokuapp.com/api/home/user/" + localStorage.getItem("userId"), {userId: localStorage.getItem("userId"), username: localStorage.getItem("username")}, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then(function(res){
     		if(res.body.success === false) {
     			this.error = true;
     			this.errorMessage = res.body.message;
@@ -154,7 +191,7 @@ export default {
 
   deleteRequest() {
 
-  	this.$http.delete("/api/home/entry/" + this.postToDelete, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then(function(res){
+  	this.$http.delete("https://young-sands-22811.herokuapp.com/api/home/entry/" + this.postToDelete, {headers: {Authorization: "Bearer " + localStorage.getItem("JWTtoken")}}).then(function(res){
   			if(res.body.success === false) {
   				this.errorDelete = true;
   				this.errorMessageDelete = res.body.message;
@@ -238,22 +275,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
- @media (min-width: 600px) {
-
-#formholder {
-	position: fixed;
-	top: 35%;
-	left: 38.5%;
-	z-index: 1;
-}
-
-}
 
 
 #formholder {
 	position: fixed;	
-	top: 35%;	
+	top: 35%;
+  left: 40.5%;	
 	z-index: 1;
+}
+
+#mobileFormholder {
+  position: fixed;
+  top: 35%;
+  left: 20%;
+  z-index: 1;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
@@ -274,10 +309,6 @@ export default {
   font-size: 1em;
   font-weight: bold;
   
-}
-
-.masthead {
-  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;
 }
 
 .right.menu {

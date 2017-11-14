@@ -1,8 +1,8 @@
 <template>
 
-	<div id="formholder" class="ui middle aligned center aligned grid">
+	<div id="formholder" class="ui middle aligned centered grid">
 
-    <div class="six wide computer only column">
+    <div class="six wide computer only center aligned column">
       <h2 class="ui teal image header">
           <div class="content">
             Register an account           
@@ -62,7 +62,7 @@
               <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
             </div>
           </div>
-          <div class="ui fluid large teal submit button">
+          <div class="ui fluid large teal submit button" @click="userRegister">
             Register
           </div>
           <div class="ui message">
@@ -102,7 +102,7 @@
               <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
             </div>
           </div>
-          <div class="ui fluid large teal submit button">
+          <div class="ui fluid large teal submit button" @click="userRegister">
             Register
           </div>
           <div class="ui message">

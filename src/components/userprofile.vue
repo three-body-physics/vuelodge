@@ -4,11 +4,11 @@
 
 	    <div class="ui fixed secondary menu" id="navbar">
       <div class="ui container">
-         <router-link to="/home" style="margin: 0px;" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+         <router-link to="/home" style="margin: 0px;" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
         </router-link>           
         
         <div class="right menu" style="margin: 0px;">
-          <div class="item" v-if="checkAuth()" style="margin: 0px;"><router-link  to="/home/new" class="ui inverted orange button">New Post</router-link></div>
+          <div class="item" v-if="checkAuth()" style="margin: 0px;"><router-link  to="/home/new" class="ui orange button">New Post</router-link></div>
      
           <!-- <div class="item"><span class="ui item" v-show="checkAuth()"> Hello {{ checkUser() }} </span></div> -->
           <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
@@ -19,8 +19,8 @@
         </div>
       </div>
     </div>
-
-  <div id="formholder" v-if="deleteCofirmation" class="ui middle aligned center aligned doubling grid">
+<transition name="form-holder">
+  <div id="formholder" v-if="deleteCofirmation" class="ui middle aligned centered doubling grid">
 
     
     <div class="computer only tablet only sixteen wide column" style="background: white;">
@@ -54,8 +54,9 @@
   
 
 </div>
-
-  <div id="mobileFormholder" v-if="deleteCofirmation" class="ui mobile only middle aligned center aligned grid">
+</transition>
+<transition name="form-holder">
+  <div id="mobileFormholder" v-if="deleteCofirmation" class="ui mobile only middle aligned centered grid">
 
     <div class="row">
     <div class="sixteen wide column" style="background: white;">
@@ -89,6 +90,7 @@
     </div>
 
 </div>
+</transition>
 
 <div class="ui stackable centered doubling grid" style="background: white; margin-bottom: 4em; margin-top: 6em">
   <div class="ten wide column">
@@ -107,8 +109,8 @@
 
   				<h3>Activity</h3>
   				<div class="ui divider"></div>
-
-  				<div v-for="entry in entries" class="event" style="margin-top: 1em;">
+<transition-group name="activity-slide" class="ui feed">
+  				<div v-for="(entry, i) in entries" :key="i" class="event" style="margin-top: 1em;">
 
   					<div class="content">
   						<div class="summary">
@@ -125,7 +127,7 @@
   					</div> 					
 
   				</div>
-
+</transition-group>
   			</div>
     
   </div>
@@ -279,9 +281,10 @@ export default {
 
 #formholder {
 	position: fixed;	
-	top: 35%;
+	top: 30%;
   left: 40.5%;	
 	z-index: 1;
+
 }
 
 #mobileFormholder {
@@ -315,5 +318,22 @@ export default {
   margin-right: 1em;
 }
 
+.activity-slide-enter-active, .activity-slide-leave-active {
+  transition: all 1s;
+}
+
+.activity-slide-enter, .activity-slide-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.form-holder-enter-active, .form-holder-leave-active {
+  transition: all 0.5s;
+}
+
+.form-holder-enter, .form-holder-leave-to {
+  opacity: 0;
+  transform: translateY(-250px);
+}
 
 </style>

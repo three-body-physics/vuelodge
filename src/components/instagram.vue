@@ -1,4 +1,5 @@
 <template>
+<transition name="postbody" appear>
 <div class="ui equal width centered stackable grid">
   <div class="center aligned row">
     <div class="eight wide middle aligned column">
@@ -27,6 +28,7 @@
   </div>
 
 </div>
+</transition>
 </template>
 
 <script>
@@ -59,5 +61,14 @@ p {
 .column {
   padding-top: 4em;
   padding-bottom: 4em;
+}
+
+.postbody-enter-active, .post-body-leave-active {
+  transition: all 1s;
+}
+
+.postbody-enter, .post-body-leave-to {
+  opacity: 0;
+  
 }
 </style>

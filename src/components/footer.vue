@@ -1,5 +1,5 @@
 <template>
-
+<transition name="postbody" appear>
   <div class="ui verticle footer">
     <div class="ui container">
       <div class="ui stackable divided equal height stackable center aligned grid">
@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-
+</transition>
 </template>
 
 <script>
@@ -33,4 +33,12 @@ p {
   margin-bottom: 1em;
 }
 
+.postbody-enter-active, .post-body-leave-active {
+  transition: all 1s;
+}
+
+.postbody-enter, .post-body-leave-to {
+  opacity: 0;
+  
+}
 </style>

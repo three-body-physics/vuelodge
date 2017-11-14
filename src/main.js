@@ -37,8 +37,22 @@ const routes = [
 
 const router = new vueRouter({
   mode: 'history',
-  routes: routes
-})
+  routes: routes,
+  scrollBehavior (to, from, savedPosition) {
+
+    const toArr = to.path.split("/");
+    if(toArr.length > 3 && toArr[1] !== "user") {
+    
+    return { x: 0, y: 600 }
+    
+    } else {
+
+      return { x: 0, y: 0}
+
+    }
+}
+
+});
 
 new Vue({
   el: '#app',

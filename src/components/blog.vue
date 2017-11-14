@@ -1,16 +1,17 @@
 <template>
+
 <div>
 
 
   <div class="ui fixed secondary menu" id="navbar">
     <div class="ui container">
-      <router-link to="/home" style="margin: 0px;" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+      <router-link to="/home" style="margin: 0px;" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
         </router-link>
 
       <div class="right menu" style="margin: 0px;">
-        <div class="item" v-if="checkAuth()" style="margin: 0px;"><router-link to="/home/new" class="ui inverted orange button">New Post</router-link></div>
+        <div class="item" v-if="checkAuth()" style="margin: 0px;"><router-link to="/home/new" class="ui orange button">New Post</router-link></div>
         <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
-        <div class="item" v-if="!checkAuth()" style="margin: 0px;"><router-link to="/register" class="ui inverted blue button">Register</router-link></div>
+        <div class="item" v-if="!checkAuth()" style="margin: 0px;"><router-link to="/register" class="ui blue button">Register</router-link></div>
         <!-- <div class="item"><span class="ui item" v-show="checkAuth()"> Hello {{ checkUser() }} </span></div> -->
         <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></div>
 
@@ -25,20 +26,25 @@
     <div class="column">
 
       <div class="ui centered segment">
+        <transition name="infobox" appear>
         <img class="ui centered fluid image" :src="entry.image">
+      </transition>
         <div class="ui divider">
 
         </div>
+
+        <transition name="infobox" appear>
         <div class="ui items">
 
           <div class="item">
             <div class="content">
+            
               <div class="header">
                 {{ entry.name }}
-              </div>
+              </div>              
               <div class="meta">
                 Posted: {{ entry.date }} , {{ entry.author }}
-              </div>
+              </div>           
               <div class="ui divider">
 
               </div>
@@ -65,9 +71,13 @@
             </div>
           </div>
 
+
         </div>
+        </transition>
       </div>
 
+
+<transition name="drop-in">
       <form v-show="replyBox" class="ui reply form">
         <div class="field">
           <div class="ui floating message">
@@ -79,7 +89,7 @@
           <i class="icon edit"></i> Add Reply
         </div>
       </form>
-
+</transition>
       <div class="ui segment" id="commentSession">
 
         <div v-bind:class='buttonClass' @click="toggleReply()">
@@ -88,8 +98,8 @@
 
         <div class="ui comments">
           <h3 class="ui dividing header"><span v-if="entry.comments">{{ entry.comments.length | commentText("comment") }}</span><span v-if="!entry.comments">0 comment</span> </h3>
-
-          <div v-for="comment in entry.comments" class="comment">
+<transition-group name="comment-seg">
+          <div v-for="(comment, index) in entry.comments" :key="index" class="comment">
             <a class="avatar">
           <i class="big user circle icon"></i>
         </a>
@@ -104,12 +114,14 @@
 
             </div>
           </div>
+</transition-group>
         </div>
       </div>
     </div>
   </div>
 
 </div>
+
 </template>
 
 <script>
@@ -123,6 +135,8 @@ export default {
         comment: "",
 
       },
+      loaded: false,
+      info: false
     }
   },
 
@@ -139,8 +153,10 @@ export default {
   created() {
     this.postReq();
     this.checkAuth();
+    
 
   },
+
 
   filters: {
 
@@ -175,11 +191,16 @@ export default {
         this.entry = res.body.post;
 
 
+
       }, function(res) {
         console.log(res);
       });
 
 
+    },
+
+    animateInfo() {
+      
     },
 
     userProfile() {
@@ -204,6 +225,7 @@ export default {
 
     toggleReply() {
       this.replyBox = !this.replyBox;
+      this.info = !this.info;
 
     },
 
@@ -314,6 +336,34 @@ export default {
 
 .right.menu {
   margin-right: 1em;
+}
+
+.drop-in-enter-active, .drop-in-leave-active {
+  transition: all 0.5s;
+}
+
+.drop-in-enter, .drop-in-leave-to {
+  opacity: 0;
+  transform: translateX(-300px);
+}
+
+
+.infobox-enter-active, .info-box-leave-active {
+transition: all 1s;
+}
+
+.infobox-enter, .infobox-leave-to {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.comment-seg-enter-active, .comment-seg-leave-active {
+  transition: all 1s;
+}
+
+.comment-seg-enter, .comment-seg-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
 

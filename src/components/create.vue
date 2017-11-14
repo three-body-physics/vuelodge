@@ -1,5 +1,6 @@
 <template>
-<div class="ui main text container segment">
+<transition name="drop-in" appear>
+<div class="ui text container segment">
   <div class="ui huge header"><router-link to="/home"><i class="fa fa-caret-square-o-left" style="letter-spacing: 0.25em; color: black;"></i></router-link>Create New Post</div>
 
   <form class="ui form">
@@ -20,6 +21,7 @@
   </form>
 
 </div>
+</transition>
 </template>
 
 <script>
@@ -86,5 +88,14 @@ export default {
 .container.segment {
   margin-top: 9em;
   margin-bottom: 6em;
+}
+
+.drop-in-enter-active, .drop-in-leave-active {
+  transition: all 3s;
+}
+
+.drop-in-enter, .drop-in-leave-to {
+  opacity: 0;
+  transform: translateY(-50px);
 }
 </style>

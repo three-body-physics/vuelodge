@@ -1,4 +1,5 @@
 <template>
+
 <div id="holder">
 
   <!-- <div class="ui button" @click="toggleLogin()">
@@ -11,14 +12,14 @@
         <div class="ui fixed secondary menu" id="navbar">
           <div class="ui container">
 
-            <router-link style="margin: 0px;" to="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+          <router-link style="margin: 0px;" to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
           </router-link>
 
             <div style="margin: 0px;" class="right menu">
               <div v-if="checkAuth()" style="margin: 0px;" class="item"><router-link class="ui orange button" to="/home/new">New Post</router-link></div>
-              <div v-if="!checkAuth()" style="margin: 0px;" class="item"><router-link to="/register" class="ui inverted blue button">Register</router-link></div>
+              <div v-if="!checkAuth()" style="margin: 0px;" class="item"><router-link to="/register" class="ui blue button">Register</router-link></div>
               <div v-show="!checkAuth()" style="margin: 0px;" class="item">
-                <a class="ui inverted orange button" @click="toggleLogin()">
+                <a class="ui orange button" @click="toggleLogin()">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login
            </a>
               </div>
@@ -36,14 +37,14 @@
       <div class="ui mobile only grid">
         <div class="ui fixed secondary menu" id="navbar">
           <div class="ui container">
-            <router-link to="/home" class="header item" id="homeNav"><i class="fa fa-home fa-2x" aria-hidden="true"></i>
+            <router-link to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
           </router-link>
 
             <div style="margin: 0px;" class="right menu">
               <div style="margin: 0px;" class="item" v-if="checkAuth()"><router-link class="ui orange button" to="/home/new">Post</router-link></div>
-              <div style="margin: 0px;" class="item" v-if="!checkAuth()"><router-link to="/register" class="ui inverted blue button">Register</router-link></div>
+              <div style="margin: 0px;" class="item" v-if="!checkAuth()"><router-link to="/register" class="ui blue button">Register</router-link></div>
               <div style="margin: 0px;" class="item" v-show="!checkAuth()">
-                <a class="ui inverted orange button" @click="toggleLogin()">
+                <a class="ui orange button" @click="toggleLogin()">
             <i class="fa fa-sign-in" aria-hidden="true"></i> Login
            </a>
               </div>
@@ -60,7 +61,7 @@
 
     </div>
 
-    <div class="ui text container">
+    <div class="ui text container" style="transition: all 2s">
       <h1 class="ui inverted header" id="bannerh1">
           Share your adventure with the world!
         </h1>
@@ -70,9 +71,11 @@
 
 </div>
 
-  <div v-if="loginForm" id="formholder" class="ui middle aligned center aligned grid">
+<transition name="form-holder">
 
-    <div class="six wide computer only column" id="computerForm">
+  <div v-if="loginForm" id="formholder" class="ui middle aligned centered grid">
+
+    <div class="six wide computer only center aligned column" id="computerForm">
       <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
@@ -112,7 +115,7 @@
       </form>
     </div>
 
-    <div class="mobile only sixteen wide column" id="mobileform">
+    <div class="mobile only sixteen wide center aligned column" id="mobileform">
       <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
@@ -152,7 +155,7 @@
       </form>
     </div>
 
-    <div class="tablet only ten wide column">
+    <div class="tablet only ten wide center aligned column">
       <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
@@ -193,7 +196,7 @@
     </div>
 
   </div>
-
+</transition>
 
   <div class="ui centered middle aligned stackable grid container" id="body">
 
@@ -211,10 +214,12 @@
     <div class="ui divider" id="headerdivider">
 
     </div>
+<div class="row">
+  <!--   <div class="ui stackable centered cards" id="ui-overrides"> -->
 
-    <div class="ui stackable centered cards grid" id="ui-overrides">
+      <transition-group name="card-ani" class="ui stackable centered cards" tag="div">
 
-      <div v-for="entry in activeEntries" class="doubling centered four wide column card" style="margin: 1em;">
+      <div v-for="(entry, index) in activeEntries" class="doubling centered four wide column card" :key="index" style="transition: all 1s;">
         <div @click="goToBLog(entry._id)" class="image">
           <img v-bind:src="entry.image">
         </div>
@@ -222,6 +227,7 @@
           <a @click="goToBLog(entry._id)" class="header">
           {{ entry.name }}
         </a>
+        <div class="ui divider"></div>
           <div class="meta">
             <span class="date">Posted: {{ entry.date }} , <strong>{{ entry.author }}</strong> </span>
           </div>
@@ -235,23 +241,25 @@
 
           <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length | commentText("comment") }}  </span>
         </div>
-        <!-- <button @click="goToBLog(entry._id)" class="ui inverted orange button">Read More
-        </button> -->
       </div>
+    </transition-group>
 
-    </div>
+<!--     </div> -->
 
+</div>
+<div class="row">
     <div class="ui pagination menu" id="pagination">
       <a v-for="num in pages" class="item" @click="pageToggle(num)">
       {{ num + 1 }}
     </a>
     </div>
-
+</div>
   </div>
 
 
 
 </div>
+
 </template>
 
 <script>
@@ -566,9 +574,40 @@ img {
   margin-right: 1em;
 }
 
+.entry-box-enter-active, .entry-box-leave-active {
+  transition: all 1s;
+}
 
-/*.row {
-   display: flex;
-   flex-wrap: wrap;
- }*/
+.entry-box-enter, .entry-box-leave-to {
+  opacity: 0; 
+
+}
+
+.form-holder-enter-active, .form-holder-leave-active {
+  transition: all 0.5s;
+}
+
+.form-holder-enter, .form-holder-leave-to {
+  opacity: 0;
+
+}
+
+/*.card-ani-enter-active, .card-ani-leave-active {
+  transition: all 4s;
+}*/
+.card-ani-enter-active, .card-ani-leave-active {
+  transition: all 1s;
+}
+.card-ani-enter, .card-ani-leave-to {
+ opacity: 0;
+ transform: translateY(-100px);
+
+}
+
+.card-ani-move {
+  transition: opacity 1s, transform 1s;
+}
+
+
+
 </style>

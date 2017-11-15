@@ -280,10 +280,10 @@ export default {
 
 
 #formholder {
-	position: fixed;	
-	top: 30%;
-  left: 40.5%;	
-	z-index: 1;
+  position: fixed;  
+  top: 30%;
+  left: 40.5%;  
+  z-index: 1;
 
 }
 
@@ -319,21 +319,28 @@ export default {
 }
 
 .activity-slide-enter-active, .activity-slide-leave-active {
+  -o-transition: all 1s;
   transition: all 1s;
+  -webkit-transition: all 1s;
 }
 
 .activity-slide-enter, .activity-slide-leave-to {
   opacity: 0;
-  transform: translateX(50px);
+  -ms-transform: translateX(50px);
+      transform: translateX(50px);
+  -webkit-transform: translateX(50px);
 }
 
 .form-holder-enter-active, .form-holder-leave-active {
+  -o-transition: all 0.5s;
   transition: all 0.5s;
+  -webkit-transition: all 0.5s;
 }
 
 .form-holder-enter, .form-holder-leave-to {
   opacity: 0;
-  transform: translateY(-250px);
+  -webkit-transform: translateY(-250px);
+      -ms-transform: translateY(-250px);
+          transform: translateY(-250px);
 }
-
 </style>

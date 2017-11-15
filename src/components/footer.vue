@@ -34,6 +34,8 @@ p {
 }
 
 .postbody-enter-active, .post-body-leave-active {
+  -webkit-transition: all 1s;
+  -o-transition: all 1s;
   transition: all 1s;
 }
 

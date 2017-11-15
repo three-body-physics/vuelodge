@@ -1,15 +1,10 @@
 <template>
 
 <div class="ui inverted vertical masthead center aligned segment">
-
   <div class="ui text container">
-
     <h2>You've been logged out. {{ message }}</h2>
-
   </div>
-
 </div>
-	
 
 </template>
 
@@ -21,9 +16,8 @@ export default {
 		return {
 			message: "You'll be redirected shortly."
 		}
-		
-	},
 
+	},
 
 	created() {
 

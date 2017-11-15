@@ -2,70 +2,75 @@
 
 <div id="holder">
 
-  <!-- <div class="ui button" @click="toggleLogin()">
-      login
-    </div> -->
-  <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui inverted vertical masthead center aligned segment">
 
-    <div class="ui container">
-      <div class="ui computer only tablet only grid">
-        <div class="ui fixed secondary menu" id="navbar">
-          <div class="ui container">
+        <div class="ui container">
+            <div class="ui computer only tablet only grid">
+                <div class="ui fixed secondary menu" id="navbar">
+                    <div class="ui container">
 
-          <router-link style="margin: 0px;" to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
-          </router-link>
+                        <router-link style="margin: 0px;" to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
+                        </router-link>
 
-            <div style="margin: 0px;" class="right menu">
-              <div v-if="checkAuth()" style="margin: 0px;" class="item"><router-link class="ui orange button" to="/home/new">New Post</router-link></div>
-              <div v-if="!checkAuth()" style="margin: 0px;" class="item"><router-link to="/register" class="ui blue button">Register</router-link></div>
-              <div v-show="!checkAuth()" style="margin: 0px;" class="item">
-                <a class="ui orange button" @click="toggleLogin()">
-            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
-           </a>
-              </div>
+                        <div style="margin: 0px;" class="right menu">
+                            <div v-if="checkAuth()" style="margin: 0px;" class="item">
+                                <router-link class="ui orange button" to="/home/new">New Post</router-link>
+                            </div>
+                            <div v-if="!checkAuth()" style="margin: 0px;" class="item">
+                                <router-link to="/register" class="ui blue button">Register</router-link>
+                            </div>
+                            <div v-show="!checkAuth()" style="margin: 0px;" class="item">
+                                <a class="ui orange button" @click="toggleLogin()">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+                                </a>
+                            </div>
 
-              <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i> {{ checkUser() }} </a></div>
-              <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-          </a>
-              </div>
+                            <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i> {{ checkUser() }} </a></div>
+                            <div v-if="checkAuth()" style="margin: 0px;" class="item"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                              </a>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="ui mobile only grid">
-        <div class="ui fixed secondary menu" id="navbar">
-          <div class="ui container">
-            <router-link to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
-          </router-link>
+            <div class="ui mobile only grid">
+                <div class="ui fixed secondary menu" id="navbar">
+                    <div class="ui container">
+                        <router-link to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
+                        </router-link>
 
-            <div style="margin: 0px;" class="right menu">
-              <div style="margin: 0px;" class="item" v-if="checkAuth()"><router-link class="ui orange button" to="/home/new">Post</router-link></div>
-              <div style="margin: 0px;" class="item" v-if="!checkAuth()"><router-link to="/register" class="ui blue button">Register</router-link></div>
-              <div style="margin: 0px;" class="item" v-show="!checkAuth()">
-                <a class="ui orange button" @click="toggleLogin()">
-            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
-           </a>
-              </div>
+                        <div style="margin: 0px;" class="right menu">
+                            <div style="margin: 0px;" class="item" v-if="checkAuth()">
+                                <router-link class="ui orange button" to="/home/new">Post</router-link>
+                            </div>
+                            <div style="margin: 0px;" class="item" v-if="!checkAuth()">
+                                <router-link to="/register" class="ui blue button">Register</router-link>
+                            </div>
+                            <div style="margin: 0px;" class="item" v-show="!checkAuth()">
+                                <a class="ui orange button" @click="toggleLogin()">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+                                </a>
+                            </div>
 
-              <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
-              <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-          </a>
-              </div>
+                            <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
+                            <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> 
+                              </a>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-      </div>
 
-    </div>
-
-    <div class="ui text container" style="transition: all 2s">
-      <h1 class="ui inverted header" id="bannerh1">
-          Share your adventure with the world!
-        </h1>
-      <h2>Register now to start posting.</h2 id="bannerh2">
+        <div class="ui text container" style="transition: all 2s">
+            <h1 class="ui inverted header" id="bannerh1">
+              Share your adventure with the world!
+            </h1>
+            <h2>Register now to start posting.</h2 id="bannerh2">
 
   </div>
 
@@ -82,532 +87,546 @@
             <i class="fa fa-times-circle" @click="toggleLogin()"></i>
           </div>
         </h2>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="username" v-model="loginName">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" placeholder="password" v-model="loginPass">
-            </div>
-          </div>
-          <div class="ui fluid large teal submit button" @click="userLogin">
-            login
-          </div>
-          <div class="ui message">
-            "New to us?"
-            <router-link to="/register">Register here</router-link>
-          </div>
-
+            <form class="ui large form">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" placeholder="username" v-model="loginName">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" placeholder="password" v-model="loginPass">
+                        </div>
+                    </div>
+                    <div class="ui fluid large teal submit button" @click="userLogin">
+                        login
+                    </div>
+                    <div class="ui message">
+                        "New to us?"
+                        <router-link to="/register">Register here</router-link>
+                    </div>
+                </div>
+                <div v-show="errorForm" class="ui error message" id="errorMsg">
+                    <ul class="list">
+                        <li>Username or password does not match.</li>
+                        <li>Inputs are case sensitive.</li>
+                    </ul>
+                </div>
+            </form>
         </div>
-        <div v-show="errorForm" class="ui error message" id="errorMsg">
-          <ul class="list">
-            <li>Username or password does not match.</li>
-            <li>Inputs are case sensitive.</li>
-          </ul>
-        </div>
 
-      </form>
-    </div>
-
-    <div class="mobile only sixteen wide center aligned column" id="mobileform">
-      <h2 class="ui teal image header">
+        <div class="mobile only sixteen wide center aligned column" id="mobileform">
+            <h2 class="ui teal image header">
           <div class="content">
             Log in to your account
             <i class="fa fa-times-circle" @click="toggleLogin()"></i>
           </div>
         </h2>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="username" v-model="loginName">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" placeholder="password" v-model="loginPass">
-            </div>
-          </div>
-          <div class="ui fluid large teal submit button" @click="userLogin">
-            login
-          </div>
-          <div class="ui message">
-            "New to us?"
-            <router-link to="/register">Register here</router-link>
-          </div>
-
-        </div>
-        <div v-show="errorForm" class="ui error message" id="errorMsg">
-          <ul class="list">
-            <li>Username or password does not match.</li>
-            <li>Inputs are case sensitive.</li>
-          </ul>
-        </div>
-
-      </form>
-    </div>
-
-    <div class="tablet only ten wide center aligned column">
-      <h2 class="ui teal image header">
-          <div class="content">
-            Log in to your account
-            <i class="fa fa-times-circle" @click="toggleLogin()"></i>
-          </div>
-        </h2>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="username" v-model="loginName">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" placeholder="password" v-model="loginPass">
-            </div>
-          </div>
-          <div class="ui fluid large teal submit button" @click="userLogin">
-            login
-          </div>
-          <div class="ui message">
-            "New to us?"
-            <router-link to="/register">Register here</router-link>
-          </div>
-
-        </div>
-        <div v-show="errorForm" class="ui error message" id="errorMsg">
-          <ul class="list">
-            <li>Username or password does not match.</li>
-            <li>Inputs are case sensitive.</li>
-          </ul>
+            <form class="ui large form">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" placeholder="username" v-model="loginName">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" placeholder="password" v-model="loginPass">
+                        </div>
+                    </div>
+                    <div class="ui fluid large teal submit button" @click="userLogin">
+                        login
+                    </div>
+                    <div class="ui message">
+                        "New to us?"
+                        <router-link to="/register">Register here</router-link>
+                    </div>
+                </div>
+                <div v-show="errorForm" class="ui error message" id="errorMsg">
+                    <ul class="list">
+                        <li>Username or password does not match.</li>
+                        <li>Inputs are case sensitive.</li>
+                    </ul>
+                </div>
+            </form>
         </div>
 
-      </form>
-    </div>
+        <div class="tablet only ten wide center aligned column">
+            <h2 class="ui teal image header">
+              <div class="content">
+                Log in to your account
+                <i class="fa fa-times-circle" @click="toggleLogin()"></i>
+              </div>
+            </h2>
+            <form class="ui large form">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" placeholder="username" v-model="loginName">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" placeholder="password" v-model="loginPass">
+                        </div>
+                    </div>
+                    <div class="ui fluid large teal submit button" @click="userLogin">
+                        login
+                    </div>
+                    <div class="ui message">
+                        "New to us?"
+                        <router-link to="/register">Register here</router-link>
+                    </div>
 
-  </div>
-</transition>
+                </div>
+                <div v-show="errorForm" class="ui error message" id="errorMsg">
+                    <ul class="list">
+                        <li>Username or password does not match.</li>
+                        <li>Inputs are case sensitive.</li>
+                    </ul>
+                </div>
 
-  <div class="ui centered middle aligned stackable grid container" id="body">
-
-    <div class="ui two column row" id="headerRow">
-      <div class="column">
-        <h4 class="ui header">
-          Latest entries:
-        </h4>
-      </div>
-      <div class="tablet computer only column">
-
-      </div>
+            </form>
+        </div>
 
     </div>
-    <div class="ui divider" id="headerdivider">
+    </transition>
 
-    </div>
-<div class="row">
-  <!--   <div class="ui stackable centered cards" id="ui-overrides"> -->
+    <div class="ui centered middle aligned stackable grid container" id="body">
 
-      <transition-group name="card-ani" class="ui stackable centered cards" tag="div">
-
-      <div v-for="(entry, index) in activeEntries" class="doubling centered four wide column card" :key="index" style="transition: all 1s;">
-        <div @click="goToBLog(entry._id)" class="image">
-          <img v-bind:src="entry.image">
-        </div>
-        <div class="content">
-          <a @click="goToBLog(entry._id)" class="header">
-          {{ entry.name }}
-        </a>
-        <div class="ui divider"></div>
-          <div class="meta">
-            <span class="date">Posted: {{ entry.date }} , <strong>{{ entry.author }}</strong> </span>
-          </div>
-          <div class="ui divider">
-          </div>
-          <div class="left aligned description">
-            {{ entry.text | limitText(150) }}
-            <div class="ui divider">
+        <div class="ui two column row" id="headerRow">
+            <div class="column">
+                <h4 class="ui header">
+                  Latest entries:
+                </h4>
             </div>
-          </div>
+            <div class="tablet computer only column">
 
-          <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length | commentText("comment") }}  </span>
+            </div>
+
         </div>
-      </div>
-    </transition-group>
+        <div class="ui divider" id="headerdivider">
 
-<!--     </div> -->
+        </div>
 
-</div>
-<div class="row">
-    <div class="ui pagination menu" id="pagination">
-      <a v-for="num in pages" class="item" @click="pageToggle(num)">
-      {{ num + 1 }}
-    </a>
+        <div class="row" id="pagination">
+            <div class="ui pagination menu">
+                <a v-for="num in pages" class="item" @click="pageToggle(num)">
+                  {{ num + 1 }}
+                </a>
+            </div>
+        </div>
+        <div class="row" style="min-height: 250px;">
+            <!--   <div class="ui stackable centered cards" id="ui-overrides"> -->
+
+            <transition-group name="card-ani" class="ui stackable centered cards" tag="div">
+
+                <div v-for="(entry, index) in activeEntries" class="doubling centered four wide column card" :key="index" style="-webkit-transition: all 300ms ease-in-out 50ms;
+  transition: all 300ms ease-in-out 50ms;">
+                    <div @click="goToBLog(entry._id)" class="image">
+                        <img v-bind:src="entry.image">
+                    </div>
+                    <div class="content">
+                        <a @click="goToBLog(entry._id)" class="header">
+                          {{ entry.name }}
+                        </a>
+                        <div class="ui divider"></div>
+                        <div class="meta">
+                            <span class="date">Posted: {{ entry.date }} , <strong>{{ entry.author }}</strong> </span>
+                        </div>
+                        <div class="ui divider">
+                        </div>
+                        <div class="left aligned description">
+                            {{ entry.text | limitText(150) }}
+                            <div class="ui divider">
+                            </div>
+                        </div>
+
+                        <i class="comment icon"></i><span id="comments" @click="goToBLog(entry._id)"> {{ entry.comments.length | commentText("comment") }}  </span>
+                    </div>
+                </div>
+            </transition-group>
+        </div>
     </div>
-</div>
-  </div>
-
-
-
 </div>
 
 </template>
 
 <script>
+
 export default {
 
-  data() {
-    return {
-      entries: [],
-      entryHolder: [],
-      activeEntries: [],
-      errorForm: false,
-      loginForm: false,
-      activePage: 0,
-      pages: [],
-      loginName: "",
-      loginPass: "",
-      loggedUserName: "",
+    data() {
+            return {
+                entries: [],
+                entryHolder: [],
+                activeEntries: [],
+                errorForm: false,
+                loginForm: false,
+                activePage: 0,
+                pages: [],
+                loginName: "",
+                loginPass: "",
+                loggedUserName: "",
 
-    }
-  },
+            }
+        },
 
-  created() {
-    this.getBlogs();
+        created() {
+            this.getBlogs();
 
-  },
+        },
 
-  methods: {
+        methods: {
 
-    getBlogs() {
-      this.$http.get("https://young-sands-22811.herokuapp.com/api/home", {
+            getBlogs() {
+                    this.$http.get("https://young-sands-22811.herokuapp.com/api/home", {
 
-        flag: "hello"
+                        flag: "hello"
 
-      }).then(function(data) {
+                    }).then(function(data) {
 
-        this.entries = data.body.reverse();
+                        this.entries = data.body.reverse();
 
-        this.divideEntries();
+                        this.divideEntries();
 
-      }, function(error) {
+                    }, function(error) {
 
-        console.log(error);
+                        console.log(error);
 
-      });
+                    });
 
-    },
+                },
 
-    checkAuth() {
+                checkAuth() {
 
-      var tk = "token: " + localStorage.getItem("JWTtoken");
+                    var tk = "token: " + localStorage.getItem("JWTtoken");
 
-      if (tk.length < 20) {
-        return false;
-      } else {
-        return true;
-      }
+                    if (tk.length < 20) {
+                        return false;
+                    } else {
+                        return true;
+                    }
 
-    },
+                },
 
-    checkUser() {
-      var who = "" + localStorage.getItem("username");
-      return who;
-    },
+                checkUser() {
+                    var who = "" + localStorage.getItem("username");
+                    return who;
+                },
 
-    userLogin(username, password) {
+                userLogin(username, password) {
 
-      if (username, password) {
+                    if (username, password) {
 
-        this.$http.post("https://young-sands-22811.herokuapp.com/api/login", {
-          username: username,
-          password: password
-        }).then(function(res) {
+                        this.$http.post("https://young-sands-22811.herokuapp.com/api/login", {
+                            username: username,
+                            password: password
+                        }).then(function(res) {
 
-          console.log(res);
+                            console.log(res);
 
-          localStorage.setItem("JWTtoken", res.body.token);
-          localStorage.setItem("userId", res.body.user._id);
-          localStorage.setItem("username", res.body.user.username);
+                            localStorage.setItem("JWTtoken", res.body.token);
+                            localStorage.setItem("userId", res.body.user._id);
+                            localStorage.setItem("username", res.body.user.username);
 
-          this.loggedUser = "token: " + res.body.token;
+                            this.loggedUser = "token: " + res.body.token;
 
-          if (this.loggedUser.length > 20) {
+                            if (this.loggedUser.length > 20) {
 
-            this.loginForm = false;
+                                this.loginForm = false;
 
-          }
+                            }
 
-          this.$router.push("/")
+                            this.$router.push("/")
 
-        }, function(err) {
-          console.log(err);
-        });
+                        }, function(err) {
+                            console.log(err);
+                        });
 
 
-      } else {
+                    } else {
 
-        this.$http.post("https://young-sands-22811.herokuapp.com/api/login", {
-          username: this.loginName,
-          password: this.loginPass
-        }).then(function(res) {
+                        this.$http.post("https://young-sands-22811.herokuapp.com/api/login", {
+                            username: this.loginName,
+                            password: this.loginPass
+                        }).then(function(res) {
 
-          console.log(res);
-          console.log("second call");
+                            console.log(res);
+                            console.log("second call");
 
-          if (res.body.success === true) {
+                            if (res.body.success === true) {
 
-            localStorage.setItem("JWTtoken", res.body.token);
-            localStorage.setItem("userId", res.body.user._id);
-            localStorage.setItem("username", res.body.user.username);
-            this.loginForm = false;
+                                localStorage.setItem("JWTtoken", res.body.token);
+                                localStorage.setItem("userId", res.body.user._id);
+                                localStorage.setItem("username", res.body.user.username);
+                                this.loginForm = false;
 
-          } else {
-            this.errorForm = true;
-          }
+                            } else {
+                                this.errorForm = true;
+                            }
 
-        }, function(res) {
-          console.log(res);
-        });
-      }
-    },
+                        }, function(res) {
+                            console.log(res);
+                        });
+                    }
+                },
 
-    userLogout() {
-      localStorage.removeItem("JWTtoken");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("username");
+                userLogout() {
+                    localStorage.removeItem("JWTtoken");
+                    localStorage.removeItem("userId");
+                    localStorage.removeItem("username");
 
-      var self = this;
-      setTimeout(function() {
-        self.$router.push("/logout");
-      }, 1000);
+                    var self = this;
+                    setTimeout(function() {
+                        self.$router.push("/logout");
+                    }, 1000);
 
-    },
+                },
 
-    userProfile(username) {
+                userProfile(username) {
 
-      if (username) {
+                    if (username) {
 
-        this.$router.push("/home/user/" + username);
+                        this.$router.push("/home/user/" + username);
 
-      } else {
+                    } else {
 
-        this.$router.push("/home/user/" + "" + localStorage.getItem("username"));
+                        this.$router.push("/home/user/" + "" + localStorage.getItem("username"));
 
-      }
+                    }
 
-    },
+                },
 
-    pageToggle(num) {
-      this.activePage = num;
-      this.pagination();
-    },
+                pageToggle(num) {
+                    this.activePage = num;
+                    this.pagination();
+                },
 
-    goToBLog(id) {
-      this.$router.push("/home/entry/" + id);
-    },
+                goToBLog(id) {
+                    this.$router.push("/home/entry/" + id);
+                },
 
-    toggleLogin() {
-      this.loginForm = !this.loginForm;
-    },
+                toggleLogin() {
+                    this.loginForm = !this.loginForm;
+                },
 
-    divideEntries() {
+                divideEntries() {
 
-      for (let i = 0; i <= this.entries.length / 6; i++) {
-        this.pages.push(i);
-      }
+                    for (let i = 0; i <= this.entries.length / 6; i++) {
+                        this.pages.push(i);
+                    }
 
-      for (let i = 0; i <= this.entries.length / 6; i++) {
-        this.entryHolder[i] = this.entries.slice((6 * i), ((6 * i) + 6));
-      }
+                    for (let i = 0; i <= this.entries.length / 6; i++) {
+                        this.entryHolder[i] = this.entries.slice((6 * i), ((6 * i) + 6));
+                    }
 
-      this.pagination();
-    },
+                    this.pagination();
+                },
 
-    pagination() {
-      this.activeEntries = this.entryHolder[this.activePage];
-    }
+                pagination() {
 
-  },
+                    this.activeEntries = [];
+                    setTimeout(() => {
+                        this.activeEntries = this.entryHolder[this.activePage]
+                    }, 300)
+                }
 
-  filters: {
-    limitText: function(text, limit) {
-      if (text.length < 100) {
-        return text;
-      } else {
-        return text.substring(0, limit) + "...";
-      }
-    },
+        },
 
-    commentText: function(text, string) {
-      if (text >= 2) {
-        return text + " comments";
-      } else {
-        return text + " comment";
-      }
-    }
-  }
+        filters: {
+            limitText: function(text, limit) {
+                if (text.length < 100) {
+                    return text;
+                } else {
+                    return text.substring(0, limit) + "...";
+                }
+            },
+
+            commentText: function(text, string) {
+                if (text >= 2) {
+                    return text + " comments";
+                } else {
+                    return text + " comment";
+                }
+            }
+        }
 }
+
 </script>
 
 <style scoped>
+
 @import url('https://fonts.googleapis.com/css?family=Catamaran|Montserrat:300i');
 @import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Fjalla+One');
 
-
-#pagination {
-  margin-top: 3em;
-  margin-bottom: 1em;
-}
-
 #formholder {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 1.5em;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5em;
 }
 
 #formholder .column {
-  position: fixed;
-  background: rgba(255, 255, 255, 1);
+    position: fixed;
+    background: rgba(255, 255, 255, 1);
 }
 
 .grid.container {
-  margin-top: 2em;
+    margin-top: 2em;
 }
 
 #mobileform {
-  top: 20%;
+    top: 20%;
 }
 
 #errorMsg {
-  display: block;
+    display: block;
 }
 
 #computerForm {
-  top: 25%;
+    top: 25%;
 }
 
-
-/*#blogpost:nth-child(n+1) {
-  margin-top: 4em;
-}*/
-
 img {
-  margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 #headerdivider {
-  margin: 0.5rem;
+    margin: 0.5rem;
 }
 
 #headerRow {
-  padding: 0px;
+    padding: 0px;
 }
 
 .segment {
-  border: 0px !important;
+    border: 0px !important;
 }
 
 #ui-overrides.card {
-  margin-top: 1em;
-  box-shadow: 0px !important;
-  border: none;
+    margin-top: 1em;
+    -webkit-box-shadow: 0px !important;
+            box-shadow: 0px !important;
+    border: none;
 }
 
 #comments {
-  opacity: 0.6;
-  cursor: pointer;
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 #comments:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 .image:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #body {
-  margin-bottom: 3em;
+    margin-bottom: 3em;
 }
 
 #homeNav {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .masthead h1.ui.header {
-  font-size: 2em;
-  margin-top: 9em;
+    font-size: 2em;
+    margin-top: 9em;
 }
 
 .masthead h2 {
-
-  margin-bottom: 10em;
-  font-size: 1.2em;
+    margin-bottom: 10em;
+    font-size: 1.2em;
 }
 
 .menu {
-  background: white;
+    background: white;
 }
 
 #navbar {
-  font-family: 'Catamaran', sans-serif;
-  font-size: 1em;
-  background: white;
+    font-family: 'Catamaran', sans-serif;
+    font-size: 1em;
+    background: white;
 }
 
 .masthead {
-  /*  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;*/
-  background: url("https://i.redd.it/lghllrc86vdy.jpg") no-repeat center center fixed !important;
+    /*  background: url("../assets/hero3.jpg") no-repeat center center fixed !important;*/
+    background: url("https://i.redd.it/lghllrc86vdy.jpg") no-repeat center center fixed !important;
 }
 
 .right.menu {
-  margin-right: 1em;
+    margin-right: 1em;
 }
 
-.entry-box-enter-active, .entry-box-leave-active {
-  transition: all 1s;
+.entry-box-enter-active,
+.entry-box-leave-active {
+    -o-transition: all 1s;
+    transition: all 1s;
+    -webkit-transition: all 1s;
 }
 
-.entry-box-enter, .entry-box-leave-to {
-  opacity: 0; 
-
+.entry-box-enter,
+.entry-box-leave-to {
+    opacity: 0;
 }
 
-.form-holder-enter-active, .form-holder-leave-active {
-  transition: all 0.5s;
+.form-holder-enter-active,
+.form-holder-leave-active {
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
 }
 
-.form-holder-enter, .form-holder-leave-to {
-  opacity: 0;
-
+.form-holder-enter,
+.form-holder-leave-to {
+    opacity: 0;
 }
 
-/*.card-ani-enter-active, .card-ani-leave-active {
-  transition: all 4s;
-}*/
-.card-ani-enter-active, .card-ani-leave-active {
-  transition: all 1s;
+.card-ani-enter-active {
+    -webkit-transition: all 600ms ease-in-out 50ms;
+    -o-transition: all 600ms ease-in-out 50ms;
+    transition: all 600ms ease-in-out 50ms;
 }
-.card-ani-enter, .card-ani-leave-to {
- opacity: 0;
- transform: translateY(-100px);
 
+.card-ani-leave-active {
+    -webkit-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+    position: absolute;
+    z-index: 0;
+}
+
+.card-ani-enter,
+.card-ani-leave-to {
+    opacity: 0;
+    -ms-transform: translateY(50px);
+        transform: translateY(50px);
+    -webkit-transform: translateY(50px);
 }
 
 .card-ani-move {
-  transition: opacity 1s, transform 1s;
+    -webkit-transition: all 600ms ease-in-out 50ms;
+    -o-transition: all 600ms ease-in-out 50ms;
+    transition: all 600ms ease-in-out 50ms;
 }
 
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 768px)
+   {
 
+    #pagination {
+      margin-bottom: 2em;
+    }
+}
 
 </style>

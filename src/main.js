@@ -41,7 +41,7 @@ const router = new vueRouter({
   scrollBehavior (to, from, savedPosition) {
 
     const toArr = to.path.split("/");
-    if(toArr.length > 3 && toArr[1] !== "user") {
+    if(toArr.length > 3 && toArr[2] !== "user") {
     
     return { x: 0, y: 600 }
     

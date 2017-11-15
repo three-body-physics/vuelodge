@@ -1,221 +1,220 @@
 <template>
 
-	<div id="formholder" class="ui middle aligned centered grid">
+<div id="formholder" class="ui middle aligned centered grid">
 
     <div class="six wide computer only center aligned column">
-      <h2 class="ui teal image header">
-          <div class="content">
-            Register an account           
-          </div>
-        </h2>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="username 5-10 characters" v-model="username" maxlength="10">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" placeholder="password 5-10 characters" v-model="userPass" maxlength="10">
-            </div>
-          </div>
-          <div :class="submitClass" @click="userRegister">
-            Register
-          </div>
-           <div class="ui message">
-            Already registered?
-            <router-link to="/home"> Login here</router-link>
-          </div>
-         
-
-        </div>
-        <div v-show="errorForm" class="ui error message" id="errorMsg">
-          <ul class="list">
-            <li> {{ errorMessage }} </li>
-          </ul>
-        </div>
-
-      </form>
-    </div>
-
-    <div class="mobile only sixteen wide column" id="mobileform">
-      <h2 class="ui teal image header">
+        <h2 class="ui teal image header">
           <div class="content">
             Register an account
-            
           </div>
         </h2>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
-            </div>
-          </div>
-          <div class="ui fluid large teal submit button" @click="userRegister">
-            Register
-          </div>
-          <div class="ui message">
-            Already registered?
-            <router-link to="/home"> Login here</router-link>
-          </div>
- 
+        <form class="ui large form">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" placeholder="username 5-10 characters" v-model="username" maxlength="10">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" placeholder="password 5-10 characters" v-model="userPass" maxlength="10">
+                    </div>
+                </div>
+                <div :class="submitClass" @click="userRegister">
+                    Register
+                </div>
+                <div class="ui message">
+                    Already registered?
+                    <router-link to="/home"> Login here</router-link>
+                </div>
 
-        </div>
-        <div v-show="errorForm" class="ui error message" id="errorMsg">
-          <ul class="list">
-            <li> {{ errorMessage }} </li>
-          </ul>
-        </div>
 
-      </form>
+            </div>
+            <div v-show="errorForm" class="ui error message" id="errorMsg">
+                <ul class="list">
+                    <li> {{ errorMessage }} </li>
+                </ul>
+            </div>
+
+        </form>
     </div>
 
-    <div class="tablet only ten wide column">
-      <h2 class="ui teal image header">
+    <div class="mobile only sixteen wide center aligned column" id="mobileform">
+        <h2 class="ui teal image header">
           <div class="content">
             Register an account
-            
+
           </div>
         </h2>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
-            </div>
-          </div>
-          <div class="ui fluid large teal submit button" @click="userRegister">
-            Register
-          </div>
-          <div class="ui message">
-            Already registered?
-            <router-link to="/home"> Login here</router-link>
-          </div>
+        <form class="ui large form">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
+                    </div>
+                </div>
+                <div class="ui fluid large teal submit button" @click="userRegister">
+                    Register
+                </div>
+                <div class="ui message">
+                    Already registered?
+                    <router-link to="/home"> Login here</router-link>
+                </div>
 
-        </div>
-        <div v-show="errorForm" class="ui error message" id="errorMsg">
-          <ul class="list">
-            <li> {{ errorMessage }} </li>
-          </ul>
-        </div>
 
-      </form>
+            </div>
+            <div v-show="errorForm" class="ui error message" id="errorMsg">
+                <ul class="list">
+                    <li> {{ errorMessage }} </li>
+                </ul>
+            </div>
+
+        </form>
     </div>
 
-  </div>
+    <div class="tablet only ten wide center aligned column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Register an account
+
+          </div>
+        </h2>
+        <form class="ui large form">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" placeholder="username 6-10 characters" v-model="username" maxlength="10">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" placeholder="password 6-10 characters" v-model="userPass" maxlength="10">
+                    </div>
+                </div>
+                <div class="ui fluid large teal submit button" @click="userRegister">
+                    Register
+                </div>
+                <div class="ui message">
+                    Already registered?
+                    <router-link to="/home"> Login here</router-link>
+                </div>
+
+            </div>
+            <div v-show="errorForm" class="ui error message" id="errorMsg">
+                <ul class="list">
+                    <li> {{ errorMessage }} </li>
+                </ul>
+            </div>
+
+        </form>
+    </div>
+
+</div>
 
 </template>
-
 
 <script>
 
 import bodyComp from "./body.vue"
 
 export default {
-  data() {
-    return {
-    	username: "",
-    	userPass: "",
-    	errorMessage: "",
-    	errorForm: false    	
-    }
-  },
-  methods: {
+    data() {
+            return {
+                username: "",
+                userPass: "",
+                errorMessage: "",
+                errorForm: false
+            }
+        },
+        methods: {
 
-  	userRegister() {
+            userRegister() {
 
-  		var self = this;
+                    var self = this;
 
-  		this.$http.post("https://young-sands-22811.herokuapp.com/api/register", {username: this.username, password: this.userPass}).then(function(res) {
+                    this.$http.post("https://young-sands-22811.herokuapp.com/api/register", {
+                        username: this.username,
+                        password: this.userPass
+                    }).then(function(res) {
 
-  			if (res.body.success === false) {
+                        if (res.body.success === false) {
 
-  				self.errorForm = true;
-  				self.errorMessage = res.body.message;
+                            self.errorForm = true;
+                            self.errorMessage = res.body.message;
 
-  			} else if (res.body.success === true) {
+                        } else if (res.body.success === true) {
 
-  			console.log(res);
+                            console.log(res);
 
-  			self.errorMessage = res.body.message;
-  			localStorage.setItem("JWTtoken", res.body.token);
-  			localStorage.setItem("username", res.body.username);
-  			localStorage.setItem("userId", res.body.userId);
+                            self.errorMessage = res.body.message;
+                            localStorage.setItem("JWTtoken", res.body.token);
+                            localStorage.setItem("username", res.body.username);
+                            localStorage.setItem("userId", res.body.userId);
 
 
-  			self.$router.push("/home");
+                            self.$router.push("/home");
 
-  		} else {
+                        } else {
 
-  			self.errorForm = true;
-  			self.errorMessage = res.body.message;
-  		}
+                            self.errorForm = true;
+                            self.errorMessage = res.body.message;
+                        }
 
-  		}, function(res) {
+                    }, function(res) {
 
-  			console.log(res);
-  			
-  		});
-  	},
+                        console.log(res);
 
-  	validateForm() {
+                    });
+                },
 
-  		if (this.username.length >= 4 && this.userPass.length >= 4) {
-  			return true;
-  		} else {
-  			return false;
-  		}
-  	}
+                validateForm() {
 
-  }, 
-  computed: {
-  	submitClass: function() {
-  	
-  		return {
-  			"ui fluid large teal submit button": this.validateForm(),
-  			"ui fluid large teal submit disabled button": !this.validateForm()
-  		}
+                    if (this.username.length >= 4 && this.userPass.length >= 4) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
 
-  	}
-  }
+        },
+        computed: {
+            submitClass: function() {
+
+                return {
+                    "ui fluid large teal submit button": this.validateForm(),
+                    "ui fluid large teal submit disabled button": !this.validateForm()
+                }
+
+            }
+        }
 
 }
 
+</script>
 
- </script>
-
- <style scoped>
-
+<style scoped>
 
 #formholder {
-	margin-top: 5em;
-	margin-bottom: 5em;
+    margin-top: 5em;
+    margin-bottom: 5em;
 }
 
 .fa-times-circle {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #errorMsg {
-	display: block;
+    display: block;
 }
-
- </style>
+</style>

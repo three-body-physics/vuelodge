@@ -46,6 +46,7 @@ export default {}
 h3 {
   font-family: 'Catamaran', sans-serif;
   text-transform: uppercase;
+  -webkit-text-transform: uppercase;
   font-size: 2em;
 }
 
@@ -64,7 +65,9 @@ p {
 }
 
 .postbody-enter-active, .post-body-leave-active {
+  -o-transition: all 1s;
   transition: all 1s;
+  -webkit-transition: all 1s;
 }
 
 .postbody-enter, .post-body-leave-to {

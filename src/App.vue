@@ -1,13 +1,11 @@
 <template>
 <div id="app">
 
-<transition name="postbody" appear>
-  <router-view></router-view>
-</transition>
-  <app-gallery></app-gallery>
-  <app-footer></app-footer>
-
-
+  <transition name="postbody" appear>
+    <router-view></router-view>
+  </transition>
+    <app-gallery></app-gallery>
+    <app-footer></app-footer>
 
 </div>
 </template>
@@ -16,10 +14,6 @@
 
 import footer from "@/components/footer"
 import gallery from "@/components/instagram"
-// import body from "@/components/body"
-// import create from "@/components/create"
-
-
 
 export default {
 
@@ -27,18 +21,17 @@ export default {
 
     "app-footer": footer,
     "app-gallery": gallery
-    // "app-body": body,
-    // "app-create": create
+
   }
 
 }
 </script>
 
-
-
 <style scoped>
 
 .postbody-enter-active, .post-body-leave-active {
+  -webkit-transition: all 1s;
+  -o-transition: all 1s;
   transition: all 1s;
 }
 
@@ -46,6 +39,5 @@ export default {
   opacity: 0;
   
 }
-
 
 </style>

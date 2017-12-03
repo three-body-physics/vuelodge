@@ -4,7 +4,7 @@
   <div class="center aligned row">
     <div class="eight wide middle aligned column">
       <a href="https://www.instagram.com/"><i class="fa fa-instagram fa-5x"></i></a>
-      <h3>Follow me on Instagram</h3>
+      <h3>Follow us on Instagram</h3>
       <div class="ui divider">
 
       </div>

@@ -1,7 +1,7 @@
-
 <template>
 
 <div>
+    <div class="ui computer only tablet only grid">
     <div class="ui fixed secondary menu" id="navbar">
         <div class="ui container">
             <router-link to="/home" style="margin: 0px;" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
@@ -19,10 +19,42 @@
             </div>
         </div>
     </div>
+    </div>
+
+            <div class="ui mobile only grid">
+                <div class="ui fixed stackable menu" id="navbar">
+                    <div class="item" style="display: flex; flex-direction:row; justify-content: space-between;">
+                        <router-link to="/home" id="homeNav" style="color: black;">Trave<span style="color: #FDBA90;">Lodge</span>
+                        </router-link>
+                        <i class="fa fa-bars" aria-hidden="true" @click="toggleMobileMenu"></i>
+                    </div>
+                    
+                    <transition name="mobile-menu">
+                    <div class="right menu" v-show="mobileshow">  
+                            <router-link to="/home/new" style="margin: 0px;" class="item" v-if="checkAuth()">
+                                New Post
+                            </router-link>
+                            <div style="margin: 0px;" class="item" v-if="!checkAuth()">
+                                <router-link to="/register" class="ui tiny header">
+                                    <i class="fa fa fa-user-plus" aria-hidden="true"></i> Register
+                                </router-link>
+                            </div>
+           
+                            <div class="item" v-if="checkAuth()" @click="userProfile()" style="margin: 0px;">
+                                Profile
+                            </div>
+                            <div class="item" v-if="checkAuth()" @click="userLogout()" style="margin: 0px;">                                
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>                               
+                            </div>
+                    </div> 
+                    </transition>
+                </div>
+            </div>
+
     <div class="ui doubling stackable centered grid" id="content">
-        <!-- <div class="ui doubling stackable centered grid container"> -->
+   
         <div class="column">
-            <div class="ui centered segment">
+            <div class="ui centered segment" id="entryBox">
                 <transition name="infobox" appear>
                     <img class="ui centered fluid image" :src="entry.image">
                 </transition>
@@ -70,15 +102,15 @@
                         <div class="ui floating message">
                             <p>Posting as: {{ checkUser() }}</p>
                         </div>
-                        <textarea placeholder="type your comment here" id="commentbox" v-model="comment.comment"></textarea>
+                        <textarea placeholder="type your comment here" id="commentbox" value="comment.comment" v-model="comment.comment"></textarea>
                     </div>
-                    <div class="ui blue labeled submit icon button" @click="postComment()">
+                    <div :class="commentClass" @click="postComment()">
                         <i class="icon edit"></i> Add Reply
                     </div>
                 </form>
             </transition>
             <div class="ui segment" id="commentSession">
-                <div v-bind:class='buttonClass' @click="toggleReply()">
+                <div :class='buttonClass' @click="toggleReply()">
                     Add Comment
                 </div>
                 <div class="ui comments">
@@ -122,16 +154,27 @@ export default {
 
                 },
                 loaded: false,
-                info: false
+                info: false,
+                mobileshow: false
             }
         },
 
         computed: {
+
             buttonClass: function() {
                 return {
                     "ui right floated blue button": this.checkAuth(),
                     "ui right floated blue disabled button": !this.checkAuth()
                 }
+            },
+
+            commentClass: function() {
+
+                return {
+                    "ui blue labeled submit icon button": this.validateForm(),
+                    "ui blue labeled submit icon disabled button": !this.validateForm()
+                }
+
             }
 
         },
@@ -157,8 +200,6 @@ export default {
         methods: {
             postComment() {
 
-                    var self = this;
-
                     this.$http.post("https://young-sands-22811.herokuapp.com/api/home/entry/" + this.id, {
                         _id: this.id,
                         content: this.comment,
@@ -174,6 +215,8 @@ export default {
                         console.log(res.body.post);
 
                         this.entry = res.body.post;
+
+                        this.comment.comment = "";
 
 
 
@@ -219,9 +262,9 @@ export default {
                     localStorage.removeItem("userId");
                     localStorage.removeItem("username");
 
-                    var self = this;
-                    setTimeout(function() {
-                        self.$router.push("/logout");
+                    
+                    setTimeout(() => {
+                        this.$router.push("/logout");
                     }, 1000);
 
 
@@ -270,14 +313,51 @@ export default {
                         month = "0" + month;
                     }
                     return day + "/" + month + "/" + year;
+                },
+
+                toggleMobileMenu() {
+                    this.mobileshow = !this.mobileshow;
+                },
+
+                validateForm() {
+
+                    if(this.comment.comment.length > 0) {  
+                     return true ;
+                    } else {
+                     return false; 
+                    }
+
                 }
 
-        }
+        },
+
+
 }
 
 </script>
 
 <style scoped>
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 768px)
+   {
+
+    #entryBox {
+        margin-top: 3em;
+    }
+}
+
+@media only screen   
+  and (min-device-width: 769px)
+   {
+
+  #entryBox {
+    margin-top: 5em;
+}
+}
+
+
 
 #description {
     font-family: helvetica, arial, sans-serif;
@@ -328,9 +408,9 @@ export default {
 .drop-in-enter,
 .drop-in-leave-to {
     opacity: 0;
-    -ms-transform: translateX(-300px);
-        transform: translateX(-300px);
-    -webkit-transform: translateX(-300px);
+    -ms-transform: translateX(-200px);
+        transform: translateX(-200px);
+    -webkit-transform: translateX(-200px);
 }
 
 .infobox-enter-active,
@@ -343,9 +423,9 @@ export default {
 .infobox-enter,
 .infobox-leave-to {
     opacity: 0;
-    -ms-transform: translateX(-50px);
-        transform: translateX(-50px);
-    -webkit-transform: translateX(-50px);
+    -ms-transform: translateY(-50px);
+        transform: translateY(-50px);
+    -webkit-transform: translateY(-50px);
 }
 
 .comment-seg-enter-active,
@@ -363,5 +443,19 @@ export default {
     -webkit-transform: translateX(30px);
 }
 
+.mobile-menu-enter-active, .mobile-menu-leave-active {
+    -webkit-transition: all 500ms ease-in;
+    -o-transition: all 500ms ease-in;
+    transition: all 500ms ease-in;
+}
 
+.mobile-menu-enter, .mobile-menu-leave-to {
+    opacity: 0;
+    height: 0;
+} 
+
+.mobile-menu-enter-to, .mobile-menu-leave {
+    opacity: 1;
+    height: 100%;
+}    
 </style>

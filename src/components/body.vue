@@ -9,7 +9,7 @@
                 <div class="ui fixed secondary menu" id="navbar">
                     <div class="ui container">
 
-                        <router-link style="margin: 0px;" to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
+                        <router-link style="margin: 0px;" to="/home" class="ui header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
                         </router-link>
 
                         <div style="margin: 0px;" class="right menu">
@@ -36,31 +36,37 @@
             </div>
 
             <div class="ui mobile only grid">
-                <div class="ui fixed secondary menu" id="navbar">
-                    <div class="ui container">
-                        <router-link to="/home" class="header item" id="homeNav">Trave<span style="color: #FDBA90;">Lodge</span>
+                <div class="ui fixed stackable menu" id="navbar">
+                    <div class="item" style="display: flex; flex-direction:row; justify-content: space-between;">
+                        <router-link to="/home" id="homeNav" style="color: black;">Trave<span style="color: #FDBA90;">Lodge</span>
                         </router-link>
-
-                        <div style="margin: 0px;" class="right menu">
-                            <div style="margin: 0px;" class="item" v-if="checkAuth()">
-                                <router-link class="ui orange button" to="/home/new">Post</router-link>
-                            </div>
+                        <i class="fa fa-bars" aria-hidden="true" @click="mobileshowToggle"></i>
+                    </div>
+                    
+                    <transition name="mobile-menu">
+                    <div class="right menu" v-show="mobileshow">  
+                            <router-link to="/home/new" style="margin: 0px;" class="item" v-if="checkAuth()">
+                                New Post
+                            </router-link>
                             <div style="margin: 0px;" class="item" v-if="!checkAuth()">
-                                <router-link to="/register" class="ui blue button">Register</router-link>
+                                <router-link to="/register" class="ui tiny header">
+                                    <i class="fa fa fa-user-plus" aria-hidden="true"></i> Register
+                                </router-link>
                             </div>
                             <div style="margin: 0px;" class="item" v-show="!checkAuth()">
-                                <a class="ui orange button" @click="toggleLogin()">
+                                <a class="ui tiny header" @click="toggleLogin()">
                                     <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                                 </a>
                             </div>
 
-                            <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userProfile()"><i class="fa fa-user-circle fa-2x" aria-hidden="true" style="display: inline-block; letter-spacing: 2px;"></i></a></div>
-                            <div class="item" v-if="checkAuth()" style="margin: 0px;"><a class="ui item" @click="userLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> 
-                              </a>
+                            <div class="item" v-if="checkAuth()" @click="userProfile()" style="margin: 0px;">
+                                Profile
                             </div>
-
-                        </div>
-                    </div>
+                            <div class="item" v-if="checkAuth()" @click="userLogout()" style="margin: 0px;">                                
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>                               
+                            </div>
+                    </div> 
+                    </transition>
                 </div>
             </div>
 
@@ -223,22 +229,21 @@
                 </a>
             </div>
         </div>
-        <div class="row" style="min-height: 250px;">
+        <div class="row" style="min-height: 550px;">
             <!--   <div class="ui stackable centered cards" id="ui-overrides"> -->
 
             <transition-group name="card-ani" class="ui stackable centered cards" tag="div">
 
-                <div v-for="(entry, index) in activeEntries" class="doubling centered four wide column card" :key="index" style="-webkit-transition: all 300ms ease-in-out 50ms;
-  transition: all 300ms ease-in-out 50ms;">
+                <div v-for="(entry, index) in activeEntries" class="doubling four wide column card" :key="index" style="-webkit-transition: all 300ms ease-in-out 50ms; transition: all 300ms ease-in-out 50ms;">
                     <div @click="goToBLog(entry._id)" class="image">
                         <img v-bind:src="entry.image">
                     </div>
-                    <div class="content">
-                        <a @click="goToBLog(entry._id)" class="header">
+                    <div class="right aligned content">
+                        <a @click="goToBLog(entry._id)" class="center aligned header">
                           {{ entry.name }}
                         </a>
                         <div class="ui divider"></div>
-                        <div class="meta">
+                        <div class="center aligned meta">
                             <span class="date">Posted: {{ entry.date }} , <strong>{{ entry.author }}</strong> </span>
                         </div>
                         <div class="ui divider">
@@ -275,6 +280,7 @@ export default {
                 loginName: "",
                 loginPass: "",
                 loggedUserName: "",
+                mobileshow: false
 
             }
         },
@@ -384,11 +390,15 @@ export default {
                     localStorage.removeItem("userId");
                     localStorage.removeItem("username");
 
-                    var self = this;
-                    setTimeout(function() {
-                        self.$router.push("/logout");
+                    
+                    setTimeout(() => {
+                        this.$router.push("/logout");
                     }, 1000);
 
+                },
+
+                mobileshowToggle() {
+                    this.mobileshow = !this.mobileshow;
                 },
 
                 userProfile(username) {
@@ -416,6 +426,7 @@ export default {
 
                 toggleLogin() {
                     this.loginForm = !this.loginForm;
+                    this.mobileshow = false;
                 },
 
                 divideEntries() {
@@ -432,12 +443,26 @@ export default {
                 },
 
                 pagination() {
-
+                                       
                     this.activeEntries = [];
+
                     setTimeout(() => {
                         this.activeEntries = this.entryHolder[this.activePage]
-                    }, 300)
-                }
+                    }, 500)
+
+
+
+                    // var e = this.entryHolder[this.activePage];
+                    // var t = 0;
+                    // e.forEach((o) =>{ 
+                    //     setTimeout(() => {
+                    //     this.activeEntries.push(o)
+                    // }, 100 + t)
+                    //     t += 100;
+                    // });
+
+                  
+                } //
 
         },
 
@@ -628,5 +653,21 @@ img {
       margin-bottom: 2em;
     }
 }
+
+.mobile-menu-enter-active, .mobile-menu-leave-active {
+    -webkit-transition: all 500ms ease-in;
+    -o-transition: all 500ms ease-in;
+    transition: all 500ms ease-in;
+}
+
+.mobile-menu-enter, .mobile-menu-leave-to {
+    opacity: 0;
+    height: 0;
+} 
+
+.mobile-menu-enter-to, .mobile-menu-leave {
+    opacity: 1;
+    height: 100%;
+}    
 
 </style>

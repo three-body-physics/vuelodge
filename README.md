@@ -1,6 +1,6 @@
 # vue-blog
 
-> Blog built with Vue
+> https://vuetravelodge.herokuapp.com/home
 
 ## Build Setup
 

@@ -4,7 +4,7 @@
 
 ## Testing
 
-Admin details:
+Site Admin details:
 
 > username: admin
 

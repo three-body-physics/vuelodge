@@ -7,6 +7,7 @@
 Admin details:
 
 > username: admin
+
 > password: admin
 
 ## Build Setup
